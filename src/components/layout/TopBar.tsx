@@ -45,7 +45,10 @@ export function TopBar() {
           </button>
 
           <div style={{ display: "flex", gap: "26px", alignItems: "center", marginRight: "auto", marginLeft: "26px" }}>
-            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+            <a
+              href="/sport-portali"
+              style={{ textDecoration: "none", display: "flex", gap: "12px", alignItems: "center", color: "inherit" }}
+            >
               <div
                 style={{
                   width: 54,
@@ -65,9 +68,12 @@ export function TopBar() {
                 <div style={{ fontWeight: 500, fontSize: "0.7rem", color: "#222A37", letterSpacing: "0.2px" }}>RESPUBLIKASI</div>
                 <div style={{ fontWeight: 500, fontSize: "0.7rem", color: "#222A37", letterSpacing: "0.2px" }}>SPORT PORTALI</div>
               </div>
-            </div>
+            </a>
 
-            <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+            <a
+              href="/prezident-olimpiadasi"
+              style={{ textDecoration: "none", display: "flex", gap: "12px", alignItems: "center", color: "inherit" }}
+            >
               <div
                 style={{
                   width: 54,
@@ -86,7 +92,7 @@ export function TopBar() {
                 <div style={{ fontWeight: 700, fontSize: "0.75rem", color: "#1E5C8E", letterSpacing: "0.4px" }}>PREZIDENT</div>
                 <div style={{ fontWeight: 700, fontSize: "0.75rem", color: "#1E5C8E", letterSpacing: "0.4px" }}>OLIMPIADASI</div>
               </div>
-            </div>
+            </a>
           </div>
 
           <button

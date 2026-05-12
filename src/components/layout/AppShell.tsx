@@ -9,6 +9,7 @@ import ScrollToTop from "@/components/shared/ScrollToTop";
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdminRoute = pathname.startsWith("/admin");
+  const hideFooter = pathname === "/sport-portali";
 
   if (isAdminRoute) {
     return <>{children}</>;
@@ -18,7 +19,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <>
       <Header />
       <main className="min-h-screen bg-neutral-bg">{children}</main>
-      <Footer />
+      {!hideFooter && <Footer />}
       <ScrollToTop />
     </>
   );
