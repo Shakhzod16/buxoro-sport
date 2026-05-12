@@ -3,7 +3,10 @@
 import { useEffect, useState } from "react";
 import { Eye, X } from "lucide-react";
 
+import SportTashkilotlariDrawer from "@/components/shared/SportTashkilotlariDrawer";
+
 export function TopBar() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [fontSize, setFontSize] = useState(100);
   const [zoom, setZoom] = useState(100);
@@ -27,6 +30,7 @@ export function TopBar() {
         <div className="mx-auto flex h-[74px] max-w-[1280px] items-center justify-between px-3">
           <button
             type="button"
+            onClick={() => setDrawerOpen(true)}
             style={{
               width: 206,
               height: 36,
@@ -210,6 +214,8 @@ export function TopBar() {
           </div>
         </div>
       ) : null}
+
+      <SportTashkilotlariDrawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </>
   );
 }
