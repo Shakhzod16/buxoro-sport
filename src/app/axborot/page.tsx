@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
 import PageHero from "@/components/sections/PageHero";
@@ -81,11 +82,15 @@ export default function AxborotPage() {
                   display: "block",
                 }}
               >
-                <img
-                  src={item.image || fallbackImage}
-                  alt=""
-                  style={{ width: "100%", height: "180px", objectFit: "cover", display: "block" }}
-                />
+                <div style={{ position: "relative", width: "100%", height: "180px" }}>
+                  <Image
+                    src={item.image || fallbackImage}
+                    alt=""
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
                 <div style={{ padding: "16px" }}>
                   <span
                     style={{

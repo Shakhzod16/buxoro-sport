@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 
 import PageHero from "@/components/sections/PageHero";
@@ -31,9 +33,9 @@ export default function AxborotSlugPage() {
       <>
         <PageHero title="Yangilik topilmadi" subtitle="Sahifa mavjud emas yoki o‘chirilgan" />
         <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px" }}>
-          <a href="/axborot" style={{ color: "#1A3C6B", fontWeight: 700, textDecoration: "none" }}>
+          <Link href="/axborot" style={{ color: "#1A3C6B", fontWeight: 700, textDecoration: "none" }}>
             ← Orqaga
-          </a>
+          </Link>
         </div>
       </>
     );
@@ -43,15 +45,29 @@ export default function AxborotSlugPage() {
     <>
       <PageHero title={article.title} subtitle={`${article.category} · ${article.date}`} />
       <div style={{ maxWidth: "800px", margin: "0 auto", padding: "32px 24px 48px" }}>
-        <a href="/axborot" style={{ display: "inline-block", marginBottom: "20px", color: "#1A3C6B", fontWeight: 700, textDecoration: "none" }}>
+        <Link href="/axborot" style={{ display: "inline-block", marginBottom: "20px", color: "#1A3C6B", fontWeight: 700, textDecoration: "none" }}>
           ← Orqaga
-        </a>
+        </Link>
         <article style={{ background: "#fff", borderRadius: "12px", padding: "28px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-          <img
-            src={article.image || fallbackImage}
-            alt=""
-            style={{ width: "100%", maxWidth: "600px", display: "block", margin: "0 auto 24px", borderRadius: "10px", objectFit: "cover" }}
-          />
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              maxWidth: "600px",
+              margin: "0 auto 24px",
+              aspectRatio: "4 / 3",
+              borderRadius: "10px",
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src={article.image || fallbackImage}
+              alt=""
+              fill
+              sizes="(max-width: 800px) 100vw, 600px"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
           <div style={{ display: "flex", gap: "12px", marginBottom: "16px", flexWrap: "wrap", alignItems: "center" }}>
             <span
               style={{
@@ -89,7 +105,9 @@ export default function AxborotSlugPage() {
                     border: "1px solid #E8ECF2",
                   }}
                 >
-                  <img src={r.image || fallbackImage} alt="" style={{ width: "100%", height: "120px", objectFit: "cover" }} />
+                  <div style={{ position: "relative", width: "100%", height: "120px" }}>
+                    <Image src={r.image || fallbackImage} alt="" fill sizes="(max-width: 900px) 33vw, 300px" style={{ objectFit: "cover" }} />
+                  </div>
                   <div style={{ padding: "12px", fontWeight: 700, fontSize: "0.85rem", color: "#0F2447", lineHeight: 1.35 }}>{r.title}</div>
                 </a>
               ))}

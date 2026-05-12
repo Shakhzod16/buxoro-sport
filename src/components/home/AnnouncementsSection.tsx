@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { useData } from '@/context/DataContext'
 
 export default function AnnouncementsSection() {
@@ -43,19 +44,19 @@ export default function AnnouncementsSection() {
             position: "relative",
             borderRadius: "12px",
             overflow: "hidden",
-            minHeight: "360px",
+            width: "100%",
+            height: "360px",
           }}
         >
-          <img
+          <Image
             src={featured.image || fallbackImage}
             alt={featured.title}
+            fill
+            sizes="(max-width: 900px) 100vw, 60vw"
             style={{
-              width: "100%",
-              height: "100%",
-              minHeight: "360px",
               objectFit: "cover",
-              display: "block",
             }}
+            priority
           />
           <div
             style={{
@@ -109,12 +110,12 @@ export default function AnnouncementsSection() {
                 boxShadow: "0 1px 5px rgba(0,0,0,0.08)",
               }}
             >
-              <img
+              <Image
                 src={item.image || fallbackImage}
                 alt={item.title}
+                width={110}
+                height={82}
                 style={{
-                  width: "110px",
-                  height: "82px",
                   borderRadius: "8px",
                   objectFit: "cover",
                   flexShrink: 0,

@@ -34,7 +34,7 @@ export default function AddNews() {
     <div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
         <button onClick={() => router.back()} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}>←</button>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F2447', margin: 0 }}>Yangi yangilik qo'shish</h1>
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F2447', margin: 0 }}>Yangi yangilik qo&apos;shish</h1>
       </div>
 
       <div style={{ background: '#fff', borderRadius: 12, padding: 32, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', maxWidth: 800 }}>

@@ -9,7 +9,7 @@ export default function Footer() {
             BUXORO SPORT
           </div>
           <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem', lineHeight: 1.6 }}>
-            Buxoro viloyatida sport sohasini rivojlantirish, musobaqalarni tashkil etish va aholiga sifatli xizmat ko'rsatishga qaratilgan rasmiy portal.
+            Buxoro viloyatida sport sohasini rivojlantirish, musobaqalarni tashkil etish va aholiga sifatli xizmat ko&apos;rsatishga qaratilgan rasmiy portal.
           </p>
         </div>
 
@@ -33,7 +33,7 @@ export default function Footer() {
         {/* Col 3 */}
         <div>
           <div style={{ fontWeight: 700, fontSize: '1rem', marginBottom: '16px', color: '#fff' }}>
-            Bog'lanish
+            Bog&apos;lanish
           </div>
           <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem', marginBottom: '8px' }}>📍 Buxoro viloyati, Buxoro shahri</p>
           <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem', marginBottom: '8px' }}>📞 +998 55 520 90 07</p>

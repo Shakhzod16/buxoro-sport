@@ -84,13 +84,15 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [documents, setDocuments] = useState<Document[]>([])
   const [announcements, setAnnouncements] = useState<Announcement[]>([])
 
-  // Load from localStorage on mount
+  // Load from localStorage on mount (deferred to avoid sync setState-in-effect lint / cascading renders)
   useEffect(() => {
-    setNews(loadData('bxs_news', initialNews))
-    setCompetitions(loadData('bxs_competitions', initialCompetitions))
-    setAthletes(loadData('bxs_athletes', initialAthletes))
-    setDocuments(loadData('bxs_documents', initialDocuments))
-    setAnnouncements(loadData('bxs_announcements', initialAnnouncements))
+    queueMicrotask(() => {
+      setNews(loadData('bxs_news', initialNews))
+      setCompetitions(loadData('bxs_competitions', initialCompetitions))
+      setAthletes(loadData('bxs_athletes', initialAthletes))
+      setDocuments(loadData('bxs_documents', initialDocuments))
+      setAnnouncements(loadData('bxs_announcements', initialAnnouncements))
+    })
   }, [])
 
   // ── NEWS CRUD ──
