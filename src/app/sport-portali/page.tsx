@@ -137,6 +137,7 @@ export default function SportPortalPage() {
   const [medalTab, setMedalTab] = useState<"Hududlar" | "Sport turlari">("Hududlar");
   const [portalDay, setPortalDay] = useState("…");
   const [portalDateTime, setPortalDateTime] = useState("…");
+  const [expandedRow, setExpandedRow] = useState<string | null>(null);
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -145,6 +146,94 @@ export default function SportPortalPage() {
       setPortalDateTime(formatPortalDateTime(d));
     });
   }, []);
+
+  const athletesByRegion: Record<
+    string,
+    {
+      oltin: { name: string; federation: string; program: string }[];
+      kumush: { name: string; federation: string; program: string }[];
+      bronza: { name: string; federation: string; program: string }[];
+    }
+  > = {
+    "Buxoro viloyati": {
+      oltin: [
+        {
+          name: "Ibodulloev Asilbek Ilhom o'g'li",
+          federation: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi',
+          program: "shpaga-jamoaviy musobaqalar",
+        },
+        {
+          name: "Naimov Firdavs Farruxovich",
+          federation: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi',
+          program: "shpaga-jamoaviy musobaqalar",
+        },
+        {
+          name: "Hamroboeva Zarina Nurmatovna",
+          federation: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi',
+          program: "shpaga-jamoaviy musobaqalar",
+        },
+        {
+          name: "Ibodulloeva Dilnura Ilhom qizi",
+          federation: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi',
+          program: "shpaga",
+        },
+        {
+          name: "Ibodulloeva Dilnura Ilhom qizi",
+          federation: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi',
+          program: "shpaga-jamoaviy musobaqalar",
+        },
+        {
+          name: "Rashidova Jasmina Mehriddin qizi",
+          federation: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi',
+          program: "shpaga-jamoaviy musobaqalar",
+        },
+        {
+          name: "Hamidov Farhodjon Hamzaevich",
+          federation: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi',
+          program: "shpaga-jamoaviy musobaqalar",
+        },
+        {
+          name: "Timur Samatov Kaxramonovich",
+          federation: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi',
+          program: "shpaga-jamoaviy musobaqalar",
+        },
+      ],
+      kumush: [],
+      bronza: [],
+    },
+    "Toshkent shahri": {
+      oltin: [
+        {
+          name: "Aliyev Jasur Baxtiyorovich",
+          federation: "Toshkent shahar sport federatsiyasi",
+          program: "individual musobaqa",
+        },
+        {
+          name: "Nazarova Malika Saidovna",
+          federation: "Toshkent shahar sport federatsiyasi",
+          program: "jamoaviy musobaqa",
+        },
+      ],
+      kumush: [
+        {
+          name: "Xasanov Bobur Rustamovich",
+          federation: "Toshkent shahar sport federatsiyasi",
+          program: "individual musobaqa",
+        },
+      ],
+      bronza: [
+        {
+          name: "Toshmatov Sherzod Alievich",
+          federation: "Toshkent shahar sport federatsiyasi",
+          program: "individual musobaqa",
+        },
+      ],
+    },
+  };
+
+  const toggleRow = (name: string) => {
+    setExpandedRow((prev) => (prev === name ? null : name));
+  };
 
   return (
     <div style={{ background: "#F5F7FA", minHeight: "100vh" }}>
@@ -264,28 +353,362 @@ export default function SportPortalPage() {
               <span />
             </div>
 
-            {MEDAL_ROWS.map((row, i) => (
-              <div
-                key={`${row.name}-${i}`}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "60px 1fr 80px 80px 80px 100px 50px",
-                  padding: "12px 16px",
-                  gap: "8px",
-                  alignItems: "center",
-                  borderBottom: "1px solid #F7FAFC",
-                  background: i % 2 === 0 ? "#fff" : "#FAFBFC",
-                }}
-              >
-                <span style={{ fontSize: "0.875rem", color: "#718096", fontWeight: 600 }}>{row.rank}</span>
-                <span style={{ fontSize: "0.875rem", color: "#1A3C6B", fontWeight: 600 }}>{row.name}</span>
-                <span style={{ textAlign: "center", fontWeight: 700, color: "#1A3C6B" }}>{row.gold}</span>
-                <span style={{ textAlign: "center", fontWeight: 700, color: "#1A3C6B" }}>{row.silver}</span>
-                <span style={{ textAlign: "center", fontWeight: 700, color: "#1A3C6B" }}>{row.bronze}</span>
-                <span style={{ textAlign: "center", fontWeight: 700, color: "#1A3C6B" }}>{row.total}</span>
-                <span style={{ textAlign: "center", color: "#CBD5E0", fontSize: "0.8rem" }}>∨</span>
-              </div>
-            ))}
+            {MEDAL_ROWS.map((row, i) => {
+              const isExpanded = expandedRow === row.name;
+              const athletes = athletesByRegion[row.name];
+
+              return (
+                <div key={i}>
+                  {/* Main row */}
+                  <div
+                    onClick={() => toggleRow(row.name)}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "70px 1fr 90px 90px 90px 100px 50px",
+                      padding: "13px 16px",
+                      gap: "8px",
+                      alignItems: "center",
+                      borderBottom: "1px solid #F7FAFC",
+                      background: isExpanded ? "#EEF3FA" : i % 2 === 0 ? "#fff" : "#FAFBFC",
+                      cursor: "pointer",
+                      transition: "background 0.15s",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "0.9rem",
+                        color: "#718096",
+                        fontWeight: 600,
+                        textAlign: "center",
+                      }}
+                    >
+                      {row.rank}
+                    </span>
+                    <span style={{ fontSize: "0.875rem", color: "#1A3C6B", fontWeight: 600 }}>{row.name}</span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#1A3C6B" }}>{row.gold}</span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#718096" }}>{row.silver}</span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#CD7F32" }}>{row.bronze}</span>
+                    <span style={{ textAlign: "center", fontWeight: 800, color: "#1A3C6B", fontSize: "1rem" }}>{row.total}</span>
+                    <span
+                      style={{
+                        textAlign: "center",
+                        color: "#1A3C6B",
+                        fontSize: "1rem",
+                        transition: "transform 0.2s",
+                        display: "inline-block",
+                        transform: isExpanded ? "rotate(180deg)" : "none",
+                      }}
+                    >
+                      ∧
+                    </span>
+                  </div>
+
+                  {/* Expanded panel */}
+                  {isExpanded && (
+                    <div
+                      style={{
+                        borderBottom: "2px solid #1A3C6B",
+                        background: "#F8FAFF",
+                        padding: "20px 16px",
+                      }}
+                    >
+                      {athletes ? (
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+                          {/* OLTIN */}
+                          <div>
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                marginBottom: "12px",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "36px",
+                                  height: "36px",
+                                  borderRadius: "50%",
+                                  background: "#F4A419",
+                                  marginBottom: "4px",
+                                }}
+                              />
+                              <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#2D3748" }}>{row.gold}</span>
+                              <span
+                                style={{
+                                  fontSize: "0.75rem",
+                                  color: "#718096",
+                                  background: "#F1F5F9",
+                                  padding: "2px 20px",
+                                  borderRadius: "20px",
+                                  marginTop: "4px",
+                                }}
+                              >
+                                Oltin
+                              </span>
+                            </div>
+                            {athletes.oltin.length === 0 ? (
+                              <p style={{ textAlign: "center", color: "#CBD5E0", fontSize: "0.8rem" }}>—</p>
+                            ) : (
+                              athletes.oltin.map((a, j) => (
+                                <div
+                                  key={j}
+                                  style={{
+                                    display: "flex",
+                                    gap: "10px",
+                                    alignItems: "flex-start",
+                                    padding: "10px 12px",
+                                    background: "#fff",
+                                    borderRadius: "8px",
+                                    marginBottom: "8px",
+                                    border: "1px solid #E2E8F0",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      width: "40px",
+                                      height: "40px",
+                                      borderRadius: "50%",
+                                      flexShrink: 0,
+                                      background: "linear-gradient(135deg, #1A3C6B, #2563EB)",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      color: "#fff",
+                                      fontSize: "0.7rem",
+                                      fontWeight: 700,
+                                    }}
+                                  >
+                                    {a.name
+                                      .split(" ")
+                                      .map((w) => w[0])
+                                      .slice(0, 2)
+                                      .join("")}
+                                  </div>
+                                  <div>
+                                    <p
+                                      style={{
+                                        margin: 0,
+                                        fontSize: "0.82rem",
+                                        fontWeight: 700,
+                                        color: "#1A3C6B",
+                                        lineHeight: 1.3,
+                                      }}
+                                    >
+                                      {a.name}
+                                    </p>
+                                    <p style={{ margin: "3px 0 0", fontSize: "0.72rem", color: "#718096", lineHeight: 1.4 }}>
+                                      {a.federation}
+                                    </p>
+                                    <p style={{ margin: "2px 0 0", fontSize: "0.72rem", color: "#718096" }}>
+                                      Sport dasturi: {a.program}
+                                    </p>
+                                  </div>
+                                </div>
+                              ))
+                            )}
+                          </div>
+
+                          {/* KUMUSH */}
+                          <div>
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                marginBottom: "12px",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "36px",
+                                  height: "36px",
+                                  borderRadius: "50%",
+                                  background: "#9CA3AF",
+                                  marginBottom: "4px",
+                                }}
+                              />
+                              <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#2D3748" }}>{row.silver}</span>
+                              <span
+                                style={{
+                                  fontSize: "0.75rem",
+                                  color: "#718096",
+                                  background: "#F1F5F9",
+                                  padding: "2px 20px",
+                                  borderRadius: "20px",
+                                  marginTop: "4px",
+                                }}
+                              >
+                                Kumush
+                              </span>
+                            </div>
+                            {athletes.kumush.length === 0 ? (
+                              <p style={{ textAlign: "center", color: "#CBD5E0", fontSize: "0.8rem" }}>—</p>
+                            ) : (
+                              athletes.kumush.map((a, j) => (
+                                <div
+                                  key={j}
+                                  style={{
+                                    display: "flex",
+                                    gap: "10px",
+                                    alignItems: "flex-start",
+                                    padding: "10px 12px",
+                                    background: "#fff",
+                                    borderRadius: "8px",
+                                    marginBottom: "8px",
+                                    border: "1px solid #E2E8F0",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      width: "40px",
+                                      height: "40px",
+                                      borderRadius: "50%",
+                                      flexShrink: 0,
+                                      background: "linear-gradient(135deg, #6B7280, #9CA3AF)",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      color: "#fff",
+                                      fontSize: "0.7rem",
+                                      fontWeight: 700,
+                                    }}
+                                  >
+                                    {a.name
+                                      .split(" ")
+                                      .map((w) => w[0])
+                                      .slice(0, 2)
+                                      .join("")}
+                                  </div>
+                                  <div>
+                                    <p
+                                      style={{
+                                        margin: 0,
+                                        fontSize: "0.82rem",
+                                        fontWeight: 700,
+                                        color: "#1A3C6B",
+                                        lineHeight: 1.3,
+                                      }}
+                                    >
+                                      {a.name}
+                                    </p>
+                                    <p style={{ margin: "3px 0 0", fontSize: "0.72rem", color: "#718096", lineHeight: 1.4 }}>
+                                      {a.federation}
+                                    </p>
+                                    <p style={{ margin: "2px 0 0", fontSize: "0.72rem", color: "#718096" }}>
+                                      Sport dasturi: {a.program}
+                                    </p>
+                                  </div>
+                                </div>
+                              ))
+                            )}
+                          </div>
+
+                          {/* BRONZA */}
+                          <div>
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                marginBottom: "12px",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "36px",
+                                  height: "36px",
+                                  borderRadius: "50%",
+                                  background: "#CD7F32",
+                                  marginBottom: "4px",
+                                }}
+                              />
+                              <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#2D3748" }}>{row.bronze}</span>
+                              <span
+                                style={{
+                                  fontSize: "0.75rem",
+                                  color: "#718096",
+                                  background: "#F1F5F9",
+                                  padding: "2px 20px",
+                                  borderRadius: "20px",
+                                  marginTop: "4px",
+                                }}
+                              >
+                                Bronza
+                              </span>
+                            </div>
+                            {athletes.bronza.length === 0 ? (
+                              <p style={{ textAlign: "center", color: "#CBD5E0", fontSize: "0.8rem" }}>—</p>
+                            ) : (
+                              athletes.bronza.map((a, j) => (
+                                <div
+                                  key={j}
+                                  style={{
+                                    display: "flex",
+                                    gap: "10px",
+                                    alignItems: "flex-start",
+                                    padding: "10px 12px",
+                                    background: "#fff",
+                                    borderRadius: "8px",
+                                    marginBottom: "8px",
+                                    border: "1px solid #E2E8F0",
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      width: "40px",
+                                      height: "40px",
+                                      borderRadius: "50%",
+                                      flexShrink: 0,
+                                      background: "linear-gradient(135deg, #92400E, #CD7F32)",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                      color: "#fff",
+                                      fontSize: "0.7rem",
+                                      fontWeight: 700,
+                                    }}
+                                  >
+                                    {a.name
+                                      .split(" ")
+                                      .map((w) => w[0])
+                                      .slice(0, 2)
+                                      .join("")}
+                                  </div>
+                                  <div>
+                                    <p
+                                      style={{
+                                        margin: 0,
+                                        fontSize: "0.82rem",
+                                        fontWeight: 700,
+                                        color: "#1A3C6B",
+                                        lineHeight: 1.3,
+                                      }}
+                                    >
+                                      {a.name}
+                                    </p>
+                                    <p style={{ margin: "3px 0 0", fontSize: "0.72rem", color: "#718096", lineHeight: 1.4 }}>
+                                      {a.federation}
+                                    </p>
+                                    <p style={{ margin: "2px 0 0", fontSize: "0.72rem", color: "#718096" }}>
+                                      Sport dasturi: {a.program}
+                                    </p>
+                                  </div>
+                                </div>
+                              ))
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <p style={{ textAlign: "center", color: "#718096", fontSize: "0.875rem", padding: "20px" }}>
+                          Ma&apos;lumot mavjud emas
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
 
             <div
               style={{
