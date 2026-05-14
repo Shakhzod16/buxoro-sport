@@ -20,6 +20,21 @@ const MEDAL_ROWS = [
   { rank: "9 =", name: "Samarqand viloyati", gold: 0, silver: 0, bronze: 1, total: 1 },
 ] as const;
 
+const MEDAL_SPORT_ROWS = [
+  { rank: 1, name: "Boks", gold: 26, silver: 26, bronze: 52, total: 104 },
+  { rank: 2, name: "Taekwondo WTF", gold: 20, silver: 20, bronze: 40, total: 80 },
+  { rank: 3, name: "Erkin kurash", gold: 20, silver: 20, bronze: 40, total: 80 },
+  { rank: 4, name: "Og'ir atletika", gold: 20, silver: 20, bronze: 20, total: 60 },
+  { rank: 5, name: "Yengil atletika", gold: 19, silver: 17, bronze: 18, total: 54 },
+  { rank: 6, name: "Dzyudo", gold: 16, silver: 16, bronze: 32, total: 64 },
+  { rank: 7, name: "Yunon-rum kurash", gold: 10, silver: 10, bronze: 20, total: 40 },
+  { rank: 8, name: "Stol tennisi", gold: 2, silver: 2, bronze: 2, total: 6 },
+  { rank: 9, name: "FIBA 3X3 basketbol", gold: 2, silver: 2, bronze: 2, total: 6 },
+  { rank: 10, name: "Badiiy gimnastika", gold: 1, silver: 1, bronze: 1, total: 3 },
+] as const;
+
+const MEDAL_SPORT_FOOTER = { gold: 136, silver: 134, bronze: 227, total: 497 } as const;
+
 const REGIONS = [
   "Andijon",
   "Buxoro",
@@ -138,6 +153,9 @@ export default function SportPortalPage() {
   const [portalDay, setPortalDay] = useState("…");
   const [portalDateTime, setPortalDateTime] = useState("…");
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
+  const [expandedSportRow, setExpandedSportRow] = useState<string | null>(null);
+  const [sportDateFrom, setSportDateFrom] = useState("");
+  const [sportDateTo, setSportDateTo] = useState("");
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -233,6 +251,10 @@ export default function SportPortalPage() {
 
   const toggleRow = (name: string) => {
     setExpandedRow((prev) => (prev === name ? null : name));
+  };
+
+  const toggleSportRow = (name: string) => {
+    setExpandedSportRow((prev) => (prev === name ? null : name));
   };
 
   return (
@@ -734,14 +756,218 @@ export default function SportPortalPage() {
             style={{
               background: "#fff",
               borderRadius: "0 8px 8px 8px",
-              padding: "48px 24px",
-              textAlign: "center",
-              color: "#64748B",
-              border: "1px solid #E2E8F0",
+              overflow: "hidden",
               boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
+              border: "1px solid #E2E8F0",
             }}
           >
-            Sport turlari bo&apos;yicha jadval tez orada joylashtiriladi.
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: "12px 16px",
+                padding: "10px 16px",
+                borderBottom: "1px solid #E2E8F0",
+                background: "#FAFBFC",
+              }}
+            >
+              <label
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  color: "#4A5568",
+                }}
+              >
+                Sana dan
+                <input
+                  type="date"
+                  value={sportDateFrom}
+                  onChange={(e) => setSportDateFrom(e.target.value)}
+                  style={{
+                    padding: "6px 10px",
+                    border: "1px solid #E2E8F0",
+                    borderRadius: "6px",
+                    fontSize: "0.8rem",
+                    color: "#2D3748",
+                    background: "#fff",
+                  }}
+                />
+              </label>
+              <label
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  color: "#4A5568",
+                }}
+              >
+                Sana gacha
+                <input
+                  type="date"
+                  value={sportDateTo}
+                  onChange={(e) => setSportDateTo(e.target.value)}
+                  style={{
+                    padding: "6px 10px",
+                    border: "1px solid #E2E8F0",
+                    borderRadius: "6px",
+                    fontSize: "0.8rem",
+                    color: "#2D3748",
+                    background: "#fff",
+                  }}
+                />
+              </label>
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "60px 1fr 80px 80px 80px 100px 50px",
+                background: "#1A3C6B",
+                padding: "12px 16px",
+                gap: "8px",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ color: "#fff", fontSize: "0.8rem", fontWeight: 600 }} />
+              <span style={{ color: "#fff", fontSize: "0.8rem", fontWeight: 600 }}>Sport turlari</span>
+              <span style={{ textAlign: "center" }}>🥇</span>
+              <span style={{ textAlign: "center" }}>🥈</span>
+              <span style={{ textAlign: "center" }}>🥉</span>
+              <span style={{ color: "#fff", fontSize: "0.8rem", fontWeight: 600, textAlign: "center" }}>Jami</span>
+              <span />
+            </div>
+
+            {MEDAL_SPORT_ROWS.map((row, i) => {
+              const isExpanded = expandedSportRow === row.name;
+              return (
+                <div key={`sport-${row.name}-${i}`}>
+                  <div
+                    onClick={() => toggleSportRow(row.name)}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "70px 1fr 90px 90px 90px 100px 50px",
+                      padding: "13px 16px",
+                      gap: "8px",
+                      alignItems: "center",
+                      borderBottom: "1px solid #F7FAFC",
+                      background: isExpanded ? "#EEF3FA" : i % 2 === 0 ? "#fff" : "#FAFBFC",
+                      cursor: "pointer",
+                      transition: "background 0.15s",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "0.9rem",
+                        color: "#718096",
+                        fontWeight: 600,
+                        textAlign: "center",
+                      }}
+                    >
+                      {row.rank}
+                    </span>
+                    <span style={{ fontSize: "0.875rem", color: "#1A3C6B", fontWeight: 600 }}>{row.name}</span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#1A3C6B" }}>{row.gold}</span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#718096" }}>{row.silver}</span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#CD7F32" }}>{row.bronze}</span>
+                    <span style={{ textAlign: "center", fontWeight: 800, color: "#1A3C6B", fontSize: "1rem" }}>{row.total}</span>
+                    <span
+                      style={{
+                        textAlign: "center",
+                        color: "#1A3C6B",
+                        fontSize: "1rem",
+                        transition: "transform 0.2s",
+                        display: "inline-block",
+                        transform: isExpanded ? "rotate(180deg)" : "none",
+                      }}
+                    >
+                      ∧
+                    </span>
+                  </div>
+                  {isExpanded && (
+                    <div
+                      style={{
+                        borderBottom: "2px solid #1A3C6B",
+                        background: "#F8FAFF",
+                        padding: "20px 16px",
+                      }}
+                    >
+                      <p style={{ textAlign: "center", color: "#718096", fontSize: "0.875rem", margin: 0 }}>
+                        Ma&apos;lumot mavjud emas
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "60px 1fr 80px 80px 80px 100px 50px",
+                padding: "12px 16px",
+                gap: "8px",
+                background: "#1A3C6B",
+                alignItems: "center",
+              }}
+            >
+              <span />
+              <span style={{ color: "#fff", fontWeight: 700, fontSize: "0.875rem" }}>Jami</span>
+              <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>{MEDAL_SPORT_FOOTER.gold}</span>
+              <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>{MEDAL_SPORT_FOOTER.silver}</span>
+              <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>{MEDAL_SPORT_FOOTER.bronze}</span>
+              <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>{MEDAL_SPORT_FOOTER.total}</span>
+              <span />
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignItems: "flex-start",
+                justifyContent: "space-between",
+                gap: "16px",
+                padding: "14px 16px 18px",
+                borderTop: "1px solid #E2E8F0",
+                background: "#FAFBFC",
+              }}
+            >
+              <p
+                style={{
+                  margin: 0,
+                  flex: "1 1 280px",
+                  fontSize: "0.78rem",
+                  fontStyle: "italic",
+                  color: "#4A5568",
+                  lineHeight: 1.55,
+                }}
+              >
+                <strong style={{ fontStyle: "normal", color: "#2D3748" }}>Izoh:</strong> Milliy sport markazlarida
+                ro&apos;yxatdan o&apos;tgan sportchilarning natijalari ularning tug&apos;ilgan hududi bo&apos;yicha
+                yig&apos;iladi.
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "6px",
+                  fontSize: "0.8rem",
+                  color: "#2D3748",
+                  fontWeight: 600,
+                  textAlign: "right",
+                  flexShrink: 0,
+                }}
+              >
+                <span>Jami ko&apos;rishlar soni: 7671</span>
+                <span>Ko&apos;rishlar soni: 35</span>
+              </div>
+            </div>
           </div>
         )}
       </div>

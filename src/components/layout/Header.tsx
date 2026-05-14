@@ -11,7 +11,17 @@ const DesktopNavBar = () => {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
-    <nav style={{ background: "#fff", borderTop: "1px solid #E2E8F0", borderBottom: "2px solid #1A3C6B" }}>
+    <nav
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        background: "#fff",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+        borderTop: "1px solid #E2E8F0",
+        borderBottom: "2px solid #1A3C6B",
+      }}
+    >
       <div
         style={{
           maxWidth: "1280px",
@@ -109,7 +119,15 @@ const MobileNavBar = ({
   const [openSection, setOpenSection] = useState<string | null>(null);
 
   return (
-    <div style={{ borderTop: "1px solid #E2E8F0" }}>
+    <div
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+        background: "#fff",
+        borderTop: "1px solid #E2E8F0",
+      }}
+    >
       <button
         type="button"
         onClick={() => setMenuOpen(!menuOpen)}
@@ -193,11 +211,9 @@ export default function Header() {
   return (
     <header
       style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 100,
+        position: "relative",
+        zIndex: 1,
         background: "#fff",
-        boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
       }}
     >
       <TopBar />
