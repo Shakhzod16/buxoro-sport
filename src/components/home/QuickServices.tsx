@@ -1,3 +1,7 @@
+'use client'
+
+import { useResponsive } from '@/hooks/useResponsive'
+
 const services = [
   { icon: '📋', title: 'Sport unvonlari berish',  href: '/davlat-xizmatlari/sport-unvonlari' },
   { icon: '🎖️', title: 'Sport razryadlari',       href: '/davlat-xizmatlari/razryadlar' },
@@ -6,13 +10,19 @@ const services = [
 ]
 
 export default function QuickServices() {
+  const { isMobile, isTablet } = useResponsive()
+
   return (
     <div style={{ background: '#EEF3FA', padding: '48px 0' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0F2447', marginBottom: '24px' }}>
           Davlat xizmatlari
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : isTablet ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+          gap: '16px',
+        }}>
           {services.map((s, i) => (
             <a key={i} href={s.href} style={{
               background: '#fff', borderRadius: '12px', padding: '28px 16px',

@@ -373,6 +373,7 @@ export default function PrezidentOlimpiadasiPage() {
             boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
           }}
         >
+          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
           <div
             style={{
               display: "grid",
@@ -761,6 +762,7 @@ export default function PrezidentOlimpiadasiPage() {
             </span>
             <span />
           </div>
+          </div>
         </div>
 
         <div style={{ display: "flex", justifyContent: "flex-end", gap: "24px", marginTop: "8px" }}>
@@ -779,11 +781,12 @@ export default function PrezidentOlimpiadasiPage() {
           style={{
             background: "#fff",
             borderRadius: "10px",
-            overflow: "auto",
+            overflow: "hidden",
             border: "1px solid #E2E8F0",
             boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
           }}
         >
+          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "900px" }}>
             <thead>
               <tr style={{ background: "#1A3C6B" }}>
@@ -827,6 +830,7 @@ export default function PrezidentOlimpiadasiPage() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
 
         <div style={{ height: "48px" }} />

@@ -1,4 +1,10 @@
+'use client'
+
+import { useResponsive } from '@/hooks/useResponsive'
+
 export default function HeroBanner() {
+  const { isMobile } = useResponsive()
+
   return (
     <div
       style={{
@@ -9,11 +15,11 @@ export default function HeroBanner() {
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'flex-start',
-        padding: '0 0 48px 48px',
+        padding: isMobile ? '0 0 32px 16px' : '0 0 48px 48px',
       }}
     >
       <div style={{ maxWidth: '800px' }}>
-        <h1 style={{ color: '#fff', fontSize: '3.5rem', fontWeight: 800, lineHeight: 1.2, textAlign: 'left' }}>
+        <h1 style={{ color: '#fff', fontSize: isMobile ? '1.8rem' : '3.5rem', fontWeight: 800, lineHeight: 1.2, textAlign: 'left' }}>
           BUXORO VILOYATI SPORT BOSHQARMASI
         </h1>
       </div>

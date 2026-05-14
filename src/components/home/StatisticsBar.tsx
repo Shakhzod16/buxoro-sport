@@ -1,9 +1,11 @@
 'use client'
 
 import { useData } from '@/context/DataContext'
+import { useResponsive } from '@/hooks/useResponsive'
 
 export default function StatisticsBar() {
   const { news, competitions, athletes, documents } = useData()
+  const { isMobile, isTablet } = useResponsive()
 
   const stats = [
     { icon: '🏟️', number: '47',              label: 'Stadion va sport inshootlari' },
@@ -17,12 +19,14 @@ export default function StatisticsBar() {
     <div style={{ background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', padding: '24px 0' }}>
       <div style={{
         maxWidth: '1280px', margin: '0 auto', padding: '0 24px',
-        display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '8px'
+        display: 'grid',
+        gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : isTablet ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)',
+        gap: isMobile ? '12px' : '8px',
       }}>
         {stats.map((s, i) => (
           <div key={i} style={{
             display: 'flex', flexDirection: 'column', alignItems: 'center',
-            borderRight: i < 4 ? '1px solid #E2E8F0' : 'none', padding: '8px 16px'
+            borderRight: isMobile ? 'none' : (i < 4 ? '1px solid #E2E8F0' : 'none'), padding: '8px 16px'
           }}>
             <span style={{ fontSize: '1.8rem' }}>{s.icon}</span>
             <span style={{ fontSize: '1.8rem', fontWeight: 800, color: '#1A3C6B', lineHeight: 1.2 }}>{s.number}</span>

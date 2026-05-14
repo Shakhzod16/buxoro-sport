@@ -356,6 +356,7 @@ export default function SportPortalPage() {
               border: "1px solid #E2E8F0",
             }}
           >
+            <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
             <div
               style={{
                 display: "grid",
@@ -750,6 +751,7 @@ export default function SportPortalPage() {
               <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>87</span>
               <span />
             </div>
+            </div>
           </div>
         ) : (
           <div
@@ -825,6 +827,7 @@ export default function SportPortalPage() {
               </label>
             </div>
 
+            <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
             <div
               style={{
                 display: "grid",
@@ -924,6 +927,7 @@ export default function SportPortalPage() {
               <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>{MEDAL_SPORT_FOOTER.bronze}</span>
               <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>{MEDAL_SPORT_FOOTER.total}</span>
               <span />
+            </div>
             </div>
 
             <div
@@ -1364,6 +1368,7 @@ export default function SportPortalPage() {
           REYTING - TOP 10
         </h2>
         <div style={{ background: "#fff", borderRadius: "10px", overflow: "hidden", border: "1px solid #E2E8F0" }}>
+          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
           <div
             style={{
               display: "grid",
@@ -1397,6 +1402,7 @@ export default function SportPortalPage() {
               <span style={{ fontSize: "0.875rem", color: "#718096" }}>👁 {row.views}</span>
             </div>
           ))}
+          </div>
         </div>
       </div>
 
@@ -1406,6 +1412,7 @@ export default function SportPortalPage() {
           PASSIV TASHKILOTLAR
         </h2>
         <div style={{ background: "#fff", borderRadius: "10px", overflow: "hidden", border: "1px solid #E2E8F0" }}>
+          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
           <div
             style={{
               display: "grid",
@@ -1451,6 +1458,7 @@ export default function SportPortalPage() {
               <span style={{ fontSize: "0.875rem", color: "#718096" }}>👁 0</span>
             </div>
           ))}
+          </div>
         </div>
       </div>
 

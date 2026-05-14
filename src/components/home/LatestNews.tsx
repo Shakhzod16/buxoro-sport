@@ -2,9 +2,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useData } from '@/context/DataContext'
+import { useResponsive } from '@/hooks/useResponsive'
 
 export default function LatestNews() {
   const { news } = useData()
+  const { isMobile, isTablet } = useResponsive()
   const activeNews = news.filter(n => n.status === 'active').slice(0, 3)
   const fallbackImage = 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&q=80'
 
@@ -14,7 +16,11 @@ export default function LatestNews() {
         <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#0F2447', margin: 0 }}>So&apos;nggi yangiliklar</h2>
         <Link href="/axborot" style={{ color: '#1A3C6B', fontWeight: 600, textDecoration: 'none', fontSize: '0.9rem' }}>Barchasi →</Link>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+        gap: '24px',
+      }}>
         {activeNews.map((item) => (
           <Link
             key={item.id}

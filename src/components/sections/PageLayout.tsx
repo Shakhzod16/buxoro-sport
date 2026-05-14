@@ -1,4 +1,8 @@
+"use client";
+
 import type { ReactNode } from "react";
+
+import { useResponsive } from "@/hooks/useResponsive";
 
 interface PageLayoutProps {
   sidebar: ReactNode;
@@ -6,14 +10,16 @@ interface PageLayoutProps {
 }
 
 export default function PageLayout({ sidebar, children }: PageLayoutProps) {
+  const { isMobile, isTablet } = useResponsive();
+
   return (
     <div
       style={{
         maxWidth: "1280px",
         margin: "0 auto",
-        padding: "32px 24px",
+        padding: isMobile ? "16px 16px" : isTablet ? "24px 20px" : "32px 24px",
         display: "grid",
-        gridTemplateColumns: "260px 1fr",
+        gridTemplateColumns: isMobile || isTablet ? "1fr" : "260px 1fr",
         gap: "32px",
         alignItems: "start",
       }}
@@ -24,8 +30,8 @@ export default function PageLayout({ sidebar, children }: PageLayoutProps) {
           borderRadius: "12px",
           overflow: "hidden",
           boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
-          position: "sticky",
-          top: "90px",
+          position: isMobile || isTablet ? "relative" : "sticky",
+          top: isMobile || isTablet ? "auto" : "90px",
         }}
       >
         {sidebar}

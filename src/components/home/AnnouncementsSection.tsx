@@ -1,9 +1,11 @@
 'use client'
 import Image from 'next/image'
 import { useData } from '@/context/DataContext'
+import { useResponsive } from '@/hooks/useResponsive'
 
 export default function AnnouncementsSection() {
   const { announcements } = useData()
+  const { isMobile } = useResponsive()
   if (announcements.length === 0) return null
   const featured = announcements[0];
   const sideList = announcements.slice(1);
@@ -34,7 +36,7 @@ export default function AnnouncementsSection() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "3fr 2fr",
+          gridTemplateColumns: isMobile ? "1fr" : "60% 40%",
           gap: "20px",
           alignItems: "stretch",
         }}

@@ -1,6 +1,7 @@
 "use client";
 
 import PageHero from "@/components/sections/PageHero";
+import { useResponsive } from "@/hooks/useResponsive";
 
 const SERVICES = [
   {
@@ -42,6 +43,8 @@ const SERVICES = [
 ];
 
 export default function DavlatXizmatlariPage() {
+  const { isMobile, isTablet } = useResponsive();
+
   return (
     <>
       <PageHero
@@ -55,7 +58,13 @@ export default function DavlatXizmatlariPage() {
           asosda, shaffof va qulay tarzda ko‘rsatiladi. Quyidagi bo‘limlar orqali unvon va razryadlar, litsenziyalash,
           statistik ma’lumotlar va murojaatlar bo‘yicha yo‘riqnomalarga kirishingiz mumkin.
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : isTablet ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
+            gap: "20px",
+          }}
+        >
           {SERVICES.map((s) => (
             <div
               key={s.title}

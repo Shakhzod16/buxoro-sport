@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react'
 
 import { BXS_SITE_CONFIG_KEY, SITE_CONFIG } from '@/lib/constants'
+import { useResponsive } from '@/hooks/useResponsive'
 
 export default function Footer() {
+  const { isMobile } = useResponsive()
   const [address, setAddress] = useState(SITE_CONFIG.address)
   const [phone, setPhone] = useState(SITE_CONFIG.phone)
   const [email, setEmail] = useState(SITE_CONFIG.email)
@@ -25,7 +27,14 @@ export default function Footer() {
 
   return (
     <footer style={{ background: '#0F2447', color: '#fff', padding: '48px 0 0 0', marginTop: '48px' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px' }}>
+      <div style={{
+        maxWidth: '1280px',
+        margin: '0 auto',
+        padding: '0 24px',
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+        gap: isMobile ? '24px' : '40px',
+      }}>
 
         {/* Col 1 */}
         <div>

@@ -152,6 +152,7 @@ export default function AdminAthletesPage() {
       )}
 
       <div style={{ background: "#fff", borderRadius: 12, padding: 24, boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+        <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ background: "#F7FAFC" }}>
@@ -215,6 +216,7 @@ export default function AdminAthletesPage() {
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

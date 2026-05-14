@@ -6,6 +6,7 @@ import PageHero from "@/components/sections/PageHero";
 import PageLayout from "@/components/sections/PageLayout";
 import SidebarNav from "@/components/sections/SidebarNav";
 import { useData } from "@/context/DataContext";
+import { useResponsive } from "@/hooks/useResponsive";
 
 const SIDEBAR_ITEMS = [
   { label: "Statistika", href: "/ochiq-malumotlar" },
@@ -26,6 +27,7 @@ const maxBar = Math.max(...BAR_DATA.map((b) => b.value));
 
 export default function OchiqMalumotlarPage() {
   const pathname = usePathname();
+  const { isMobile } = useResponsive();
   const { news, competitions, athletes, documents } = useData();
 
   const cards = [
@@ -44,7 +46,7 @@ export default function OchiqMalumotlarPage() {
       />
       <PageLayout sidebar={<SidebarNav title="Ochiq ma'lumotlar" items={SIDEBAR_ITEMS} currentPath={pathname} />}>
         <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "14px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: "14px" }}>
             {cards.map((c) => (
               <div
                 key={c.label}
