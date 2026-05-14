@@ -19,22 +19,16 @@ export default function BoglanishPage() {
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "32px 24px 48px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "55% 45%", gap: "32px", alignItems: "start" }}>
           <div>
-            <div
-              style={{
-                height: "400px",
-                background: "#EEF3FA",
-                borderRadius: "14px",
-                border: "1px solid #D9E2EC",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "1.25rem",
-                fontWeight: 700,
-                color: "#64748B",
-              }}
-            >
-              📍 Xarita
-            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47967.123!2d64.3791!3d39.7747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f4d1b68ef7b3b31%3A0x6a5e8b45a4e3b0d!2sBuxoro%2C%20O%27zbekiston!5e0!3m2!1suz!2suz!4v1234567890"
+              width="100%"
+              height="400"
+              style={{ border: 0, borderRadius: "12px", display: "block" }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Buxoro viloyati sport boshqarmasi manzili"
+            />
             <div style={{ marginTop: "20px", padding: "18px", background: "#fff", borderRadius: "12px", border: "1px solid #E2E8F0" }}>
               <div style={{ fontWeight: 800, color: "#0F2447", marginBottom: "8px" }}>Manzil</div>
               <p style={{ margin: 0, color: "#475569", lineHeight: 1.6 }}>Buxoro viloyati, Buxoro shahri, sport boshqarmasi binosi.</p>
@@ -135,6 +129,92 @@ export default function BoglanishPage() {
                   {t}
                 </div>
               ))}
+            </div>
+
+            <div style={{ marginTop: "16px" }}>
+              <div style={{ fontWeight: 700, fontSize: "0.8rem", color: "#334155", marginBottom: "10px" }}>Ijtimoiy tarmoqlar</div>
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                <a
+                  href="https://t.me/buxoro_sport"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Telegram"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    background: "#1A3C6B",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontSize: "1rem",
+                  }}
+                >
+                  ✈️
+                </a>
+                <a
+                  href="https://instagram.com/buxoro_sport"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    background: "#1A3C6B",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontSize: "1rem",
+                  }}
+                >
+                  📷
+                </a>
+                <a
+                  href="https://facebook.com/buxorosport"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    background: "#1A3C6B",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontSize: "1rem",
+                  }}
+                >
+                  📘
+                </a>
+                <a
+                  href="https://youtube.com/@buxorosport"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    background: "#1A3C6B",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontSize: "1rem",
+                  }}
+                >
+                  ▶️
+                </a>
+              </div>
             </div>
           </div>
         </div>

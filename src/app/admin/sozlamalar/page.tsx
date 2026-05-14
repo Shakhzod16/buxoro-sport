@@ -1,13 +1,25 @@
 "use client";
 
 import { useEffect, useState, type CSSProperties } from "react";
-import { SITE_CONFIG } from "@/lib/constants";
+
+import { BXS_SITE_CONFIG_KEY, SITE_CONFIG } from "@/lib/constants";
+
+type SiteForm = {
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+};
+
+const defaultForm: SiteForm = {
+  name: SITE_CONFIG.name,
+  phone: SITE_CONFIG.phone,
+  email: SITE_CONFIG.email,
+  address: SITE_CONFIG.address,
+};
 
 export default function AdminSettingsPage() {
-  const [siteName, setSiteName] = useState("Buxoro Viloyati Sport Boshqarmasi");
-  const [phone, setPhone] = useState(SITE_CONFIG.phone);
-  const [email, setEmail] = useState(SITE_CONFIG.email);
-  const [address, setAddress] = useState(SITE_CONFIG.address);
+  const [form, setForm] = useState<SiteForm>(defaultForm);
   const [saveMsg, setSaveMsg] = useState<string | null>(null);
 
   const [currentPw, setCurrentPw] = useState("");
@@ -16,13 +28,21 @@ export default function AdminSettingsPage() {
   const [pwMsg, setPwMsg] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!saveMsg) return;
-    const t = window.setTimeout(() => setSaveMsg(null), 3000);
-    return () => window.clearTimeout(t);
-  }, [saveMsg]);
+    const saved = localStorage.getItem(BXS_SITE_CONFIG_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved) as Partial<SiteForm>;
+        setForm((prev) => ({ ...prev, ...parsed }));
+      } catch {
+        /* ignore */
+      }
+    }
+  }, []);
 
-  const handleSaveSite = () => {
-    setSaveMsg("Sozlamalar saqlandi ✓");
+  const handleSave = () => {
+    localStorage.setItem(BXS_SITE_CONFIG_KEY, JSON.stringify(form));
+    setSaveMsg("✅ Sozlamalar saqlandi!");
+    window.setTimeout(() => setSaveMsg(""), 3000);
   };
 
   const handlePassword = () => {
@@ -73,16 +93,16 @@ export default function AdminSettingsPage() {
       <div style={card}>
         <h2 style={{ margin: "0 0 16px", fontSize: "1.05rem", fontWeight: 800, color: "#0F2447" }}>Sayt ma&apos;lumotlari</h2>
         <label style={label}>Sayt nomi</label>
-        <input value={siteName} onChange={(e) => setSiteName(e.target.value)} style={input} />
+        <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} style={input} />
         <label style={label}>Telefon</label>
-        <input value={phone} onChange={(e) => setPhone(e.target.value)} style={input} />
+        <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} style={input} />
         <label style={label}>Email</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={input} />
+        <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} style={input} />
         <label style={label}>Manzil</label>
-        <input value={address} onChange={(e) => setAddress(e.target.value)} style={{ ...input, marginBottom: 16 }} />
+        <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} style={{ ...input, marginBottom: 16 }} />
         <button
           type="button"
-          onClick={handleSaveSite}
+          onClick={handleSave}
           style={{
             padding: "10px 24px",
             background: "#1A3C6B",

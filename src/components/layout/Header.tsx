@@ -5,9 +5,10 @@ import Link from "next/link";
 
 import { BrandBar } from "@/components/layout/BrandBar";
 import { TopBar } from "@/components/layout/TopBar";
+import SearchPanel from "@/components/shared/SearchPanel";
 import { NAV_ITEMS } from "@/data/navigation";
 
-const DesktopNavBar = () => {
+const DesktopNavBar = ({ onOpenSearch }: { onOpenSearch: () => void }) => {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
@@ -104,6 +105,25 @@ const DesktopNavBar = () => {
             )}
           </div>
         ))}
+        <button
+          type="button"
+          onClick={onOpenSearch}
+          style={{
+            marginLeft: "auto",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: "4px 8px",
+            color: "#718096",
+            fontSize: "1.2rem",
+            display: "flex",
+            alignItems: "center",
+          }}
+          aria-label="Qidiruv"
+          title="Qidiruv"
+        >
+          🔍
+        </button>
       </div>
     </nav>
   );
@@ -200,6 +220,7 @@ const MobileNavBar = ({
 export default function Header() {
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -223,7 +244,8 @@ export default function Header() {
         </p>
       </div>
       <BrandBar />
-      {isMobile ? <MobileNavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} /> : <DesktopNavBar />}
+      {isMobile ? <MobileNavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} /> : <DesktopNavBar onOpenSearch={() => setSearchOpen(true)} />}
+      <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

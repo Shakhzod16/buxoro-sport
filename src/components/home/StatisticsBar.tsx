@@ -1,12 +1,18 @@
-const stats = [
-  { icon: '🏟️', number: '47',    label: 'Stadion va sport inshootlari' },
-  { icon: '🥊', number: '280+',  label: 'Sport klublari' },
-  { icon: '👥', number: '15 000',label: 'Faol sportchilar' },
-  { icon: '🏅', number: '120',   label: 'Musobaqalar (yiliga)' },
-  { icon: '🎓', number: '12',    label: 'Sport maktablari' },
-]
+'use client'
+
+import { useData } from '@/context/DataContext'
 
 export default function StatisticsBar() {
+  const { news, competitions, athletes, documents } = useData()
+
+  const stats = [
+    { icon: '🏟️', number: '47',              label: 'Stadion va sport inshootlari' },
+    { icon: '🥊', number: `${competitions.length * 12}+`, label: 'Sport klublari' },
+    { icon: '👥', number: `${athletes.length * 120}+`,    label: 'Faol sportchilar' },
+    { icon: '🏅', number: `${competitions.length * 40}`,  label: 'Musobaqalar (yiliga)' },
+    { icon: '🎓', number: '12',              label: 'Sport maktablari' },
+  ]
+
   return (
     <div style={{ background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', padding: '24px 0' }}>
       <div style={{

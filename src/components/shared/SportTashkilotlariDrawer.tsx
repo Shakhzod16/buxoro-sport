@@ -429,7 +429,9 @@ export default function SportTashkilotlariDrawer({ isOpen, onClose }: Props) {
                 <div style={{ display: "flex", gap: "8px" }}>
                   {selectedOrg.social.instagram ? (
                     <a
-                      href="#"
+                      href="https://instagram.com/buxoro_sport"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{
                         width: "32px",
                         height: "32px",
@@ -448,7 +450,9 @@ export default function SportTashkilotlariDrawer({ isOpen, onClose }: Props) {
                   ) : null}
                   {selectedOrg.social.telegram ? (
                     <a
-                      href="#"
+                      href="https://t.me/buxoro_sport"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{
                         width: "32px",
                         height: "32px",
@@ -467,7 +471,9 @@ export default function SportTashkilotlariDrawer({ isOpen, onClose }: Props) {
                   ) : null}
                   {selectedOrg.social.facebook ? (
                     <a
-                      href="#"
+                      href="https://facebook.com/buxorosport"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{
                         width: "32px",
                         height: "32px",
@@ -486,7 +492,9 @@ export default function SportTashkilotlariDrawer({ isOpen, onClose }: Props) {
                   ) : null}
                   {selectedOrg.social.youtube ? (
                     <a
-                      href="#"
+                      href="https://youtube.com/@buxorosport"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{
                         width: "32px",
                         height: "32px",

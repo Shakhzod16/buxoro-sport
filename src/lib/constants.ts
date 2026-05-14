@@ -1,3 +1,13 @@
+/** Saved by admin Sozlamalar → `localStorage` (client-only). */
+export const BXS_SITE_CONFIG_KEY = "bxs_site_config" as const;
+
+export type SiteConfigPersisted = {
+  name?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+};
+
 export const SITE_CONFIG = {
   name: "Buxoro Viloyati Sport Boshqarmasi",
   shortName: "Buxoro Sport",
