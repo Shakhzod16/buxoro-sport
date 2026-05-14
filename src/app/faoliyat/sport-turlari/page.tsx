@@ -48,9 +48,8 @@ export default function SportTurlariPage() {
       />
       <PageLayout sidebar={<SidebarNav title="Faoliyat" items={SIDEBAR_ITEMS} currentPath={pathname} />}>
         <div
+          className="sport-types-grid"
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
             gap: "14px",
             background: "#fff",
             borderRadius: "12px",

@@ -1,10 +1,8 @@
 "use client";
 
 import { useData } from "@/context/DataContext";
-import { useResponsive } from "@/hooks/useResponsive";
 
 export default function AdminDashboard() {
-  const { isMobile } = useResponsive();
   const { news, competitions, athletes, documents } = useData();
 
   const stats = [
@@ -20,7 +18,7 @@ export default function AdminDashboard() {
     <div>
       <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#0F2447", marginBottom: 24 }}>Dashboard</h1>
 
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: 16, marginBottom: 32 }}>
+      <div className="admin-stats-grid" style={{ display: "grid", gap: 16, marginBottom: 32 }}>
         {stats.map((s, i) => (
           <div
             key={i}
@@ -49,7 +47,7 @@ export default function AdminDashboard() {
         {recentNews.length === 0 ? (
           <p style={{ margin: 0, color: "#718096" }}>Yangiliklar yo&apos;q.</p>
         ) : (
-          <div style={{ overflowX: "auto" }}>
+          <div className="table-scroll">
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #E2E8F0" }}>

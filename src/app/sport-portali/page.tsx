@@ -356,7 +356,7 @@ export default function SportPortalPage() {
               border: "1px solid #E2E8F0",
             }}
           >
-            <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+            <div className="table-scroll">
             <div
               style={{
                 display: "grid",
@@ -827,7 +827,7 @@ export default function SportPortalPage() {
               </label>
             </div>
 
-            <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+            <div className="table-scroll">
             <div
               style={{
                 display: "grid",
@@ -1230,7 +1230,7 @@ export default function SportPortalPage() {
         <h2 style={{ fontSize: "1rem", fontWeight: 800, color: "#1A3C6B", marginBottom: "20px", letterSpacing: "0.05em" }}>
           ENG KO&apos;P KO&apos;RILGANLAR
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+        <div className="news-grid" style={{ display: "grid", gap: "16px" }}>
           {MOST_VIEWED.map((item, i) => (
             <Link
               key={`${item.title}-${i}`}
@@ -1310,7 +1310,7 @@ export default function SportPortalPage() {
       {/* ═══ 7. YANGILIKLAR ═══ */}
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px 0" }}>
         <h2 style={{ fontSize: "1rem", fontWeight: 800, color: "#1A3C6B", marginBottom: "20px", letterSpacing: "0.05em" }}>YANGILIKLAR</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
+        <div className="news-grid" style={{ display: "grid", gap: "16px" }}>
           {news
             .filter((n) => n.status === "active")
             .slice(0, 6)
@@ -1368,11 +1368,10 @@ export default function SportPortalPage() {
           REYTING - TOP 10
         </h2>
         <div style={{ background: "#fff", borderRadius: "10px", overflow: "hidden", border: "1px solid #E2E8F0" }}>
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          <div className="table-scroll">
           <div
+            className="reyting-grid"
             style={{
-              display: "grid",
-              gridTemplateColumns: "60px 1fr 120px 100px",
               padding: "10px 16px",
               background: "#F7FAFC",
               gap: "8px",
@@ -1386,9 +1385,8 @@ export default function SportPortalPage() {
           {RATING_TOP_10.map((row, i) => (
             <div
               key={`${row.name}-${row.rank}`}
+              className="reyting-grid"
               style={{
-                display: "grid",
-                gridTemplateColumns: "60px 1fr 120px 100px",
                 padding: "12px 16px",
                 gap: "8px",
                 alignItems: "center",
@@ -1412,11 +1410,10 @@ export default function SportPortalPage() {
           PASSIV TASHKILOTLAR
         </h2>
         <div style={{ background: "#fff", borderRadius: "10px", overflow: "hidden", border: "1px solid #E2E8F0" }}>
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          <div className="table-scroll">
           <div
+            className="reyting-grid"
             style={{
-              display: "grid",
-              gridTemplateColumns: "60px 1fr 120px 100px",
               padding: "10px 16px",
               background: "#F7FAFC",
               gap: "8px",
@@ -1442,9 +1439,8 @@ export default function SportPortalPage() {
           ].map((row, i) => (
             <div
               key={i}
+              className="reyting-grid"
               style={{
-                display: "grid",
-                gridTemplateColumns: "60px 1fr 120px 100px",
                 padding: "12px 16px",
                 gap: "8px",
                 alignItems: "center",

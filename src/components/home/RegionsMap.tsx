@@ -1,8 +1,6 @@
 'use client'
 import { useState } from 'react'
 
-import { useResponsive } from '@/hooks/useResponsive'
-
 const regions = [
   { id: 'qoraqalpogiston', name: "Qoraqalpog'iston Respublikasi" },
   { id: 'xorazm',          name: 'Xorazm' },
@@ -92,7 +90,6 @@ const paths: Record<string, string> = {
 }
 
 export default function RegionsMap() {
-  const { isMobile } = useResponsive()
   const [selected, setSelected] = useState<string | null>(null)
   const [hovered, setHovered] = useState<string | null>(null)
 
@@ -111,12 +108,13 @@ export default function RegionsMap() {
       <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#1A3C6B', marginBottom: '24px' }}>
         BOSHQARMALAR
       </h2>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '55% 45%',
-        gap: '24px',
-        alignItems: 'start',
-      }}>
+      <div
+        className="regions-grid"
+        style={{
+          gap: '24px',
+          alignItems: 'start',
+        }}
+      >
 
         {/* SVG Map */}
         <div style={{ background: '#fff', borderRadius: '16px', border: '1px solid #E2E8F0', padding: '16px' }}>

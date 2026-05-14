@@ -3,10 +3,8 @@
 import { useState, type FormEvent } from "react";
 
 import PageHero from "@/components/sections/PageHero";
-import { useResponsive } from "@/hooks/useResponsive";
 
 export default function BoglanishPage() {
-  const { isMobile } = useResponsive();
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
 
@@ -19,7 +17,7 @@ export default function BoglanishPage() {
     <>
       <PageHero title="Bog'lanish" subtitle="Manzil, aloqa va murojaat formasi" breadcrumb={[{ label: "Bog'lanish", href: "/boglanish" }]} />
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "32px 24px 48px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "55% 45%", gap: "32px", alignItems: "start" }}>
+        <div className="boglanish-grid" style={{ display: "grid", gap: "32px", alignItems: "start" }}>
           <div>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47967.123!2d64.3791!3d39.7747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f4d1b68ef7b3b31%3A0x6a5e8b45a4e3b0d!2sBuxoro%2C%20O%27zbekiston!5e0!3m2!1suz!2suz!4v1234567890"

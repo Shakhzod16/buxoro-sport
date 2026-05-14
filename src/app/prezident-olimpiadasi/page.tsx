@@ -373,7 +373,7 @@ export default function PrezidentOlimpiadasiPage() {
             boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
           }}
         >
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          <div className="table-scroll">
           <div
             style={{
               display: "grid",
@@ -786,7 +786,7 @@ export default function PrezidentOlimpiadasiPage() {
             boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
           }}
         >
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+          <div className="table-scroll">
           <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "900px" }}>
             <thead>
               <tr style={{ background: "#1A3C6B" }}>

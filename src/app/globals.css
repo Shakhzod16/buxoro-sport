@@ -13,55 +13,296 @@
   h1, h2, h3, h4 {
     font-family: 'Montserrat', sans-serif;
   }
+  * { box-sizing: border-box; }
 }
 
-/* Responsive containers */
-.r-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 24px;
+/* ─── RESPONSIVE GRID OVERRIDES ─── */
+
+/* Statistics bar: 5 cols → 3 → 2 */
+.stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+}
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
 }
 
-/* Responsive grids */
-.r-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.r-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.r-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.r-grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-
-.r-sidebar-layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 32px;
-  align-items: start;
+.stats-grid > div {
+  border-right: 1px solid #e2e8f0;
+}
+.stats-grid > div:nth-child(5) {
+  border-right: none;
+}
+@media (max-width: 600px) {
+  .stats-grid > div {
+    border-right: none !important;
+  }
 }
 
-@media (max-width: 1024px) {
-  .r-grid-4 { grid-template-columns: repeat(2, 1fr); }
-  .r-grid-5 { grid-template-columns: repeat(3, 1fr); }
+/* Services: 4 cols → 2 */
+.services-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+@media (max-width: 900px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
+/* News: 3 cols → 2 → 1 */
+.news-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+@media (max-width: 900px) {
+  .news-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 600px) {
+  .news-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Athletes: 4 cols → 2 */
+.athletes-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+@media (max-width: 900px) {
+  .athletes-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 600px) {
+  .athletes-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* Footer: 3 cols → 1 */
+.footer-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 40px !important;
+}
 @media (max-width: 768px) {
-  .r-container { padding: 0 16px; }
-  .r-grid-2 { grid-template-columns: 1fr; }
-  .r-grid-3 { grid-template-columns: 1fr; }
-  .r-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .r-grid-5 { grid-template-columns: repeat(2, 1fr); }
-  .r-sidebar-layout { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
 }
 
-@media (max-width: 480px) {
-  .r-grid-4 { grid-template-columns: 1fr; }
-  .r-grid-5 { grid-template-columns: repeat(2, 1fr); }
+/* Announcements: 60/40 → 1 col */
+.announcements-grid {
+  display: grid !important;
+  grid-template-columns: 60% 40% !important;
 }
-
-/* Table overflow on mobile */
-.r-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-
-/* Hide/show utilities */
 @media (max-width: 768px) {
-  .r-desktop-only { display: none !important; }
+  .announcements-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Regions map: 55/45 → 1 col */
+.regions-grid {
+  display: grid !important;
+  grid-template-columns: 55% 45% !important;
+}
+@media (max-width: 900px) {
+  .regions-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Page sidebar layout: sidebar+content → 1 col */
+.page-layout-grid {
+  display: grid !important;
+  grid-template-columns: 260px 1fr !important;
+  gap: 32px !important;
+}
+@media (max-width: 900px) {
+  .page-layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+.page-layout-outer {
+  padding: 32px 24px;
+}
+@media (max-width: 900px) {
+  .page-layout-outer {
+    padding: 24px 20px !important;
+  }
+}
+@media (max-width: 600px) {
+  .page-layout-outer {
+    padding: 16px 16px !important;
+  }
+}
+
+.page-layout-aside {
+  position: sticky;
+  top: 90px;
+}
+@media (max-width: 900px) {
+  .page-layout-aside {
+    position: relative !important;
+    top: auto !important;
+  }
+}
+
+/* Boglanish: 55/45 → 1 col */
+.boglanish-grid {
+  display: grid !important;
+  grid-template-columns: 55% 45% !important;
+}
+@media (max-width: 768px) {
+  .boglanish-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Reyting table columns */
+.reyting-grid {
+  display: grid !important;
+  grid-template-columns: 60px 1fr 120px 100px !important;
+}
+@media (max-width: 600px) {
+  .reyting-grid { grid-template-columns: 36px 1fr 56px 56px !important; }
+}
+
+/* Hero banner */
+.hero-padding {
+  padding: 0 0 48px 48px;
+}
+@media (max-width: 768px) {
+  .hero-title { font-size: 1.6rem !important; }
+  .hero-padding { padding: 0 0 32px 16px !important; }
+}
+
+/* TopBar */
+.topbar-inner {
+  height: 72px;
+}
+@media (max-width: 768px) {
+  .topbar-logos { display: none !important; }
+  .topbar-inner {
+    justify-content: space-between !important;
+    height: 48px !important;
+  }
+}
+
+/* BrandBar */
+@media (max-width: 768px) {
+  .brandbar-inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+    padding: 10px 16px !important;
+  }
+  .brandbar-phone { font-size: 1rem !important; }
+  .brandbar-title { font-size: 0.85rem !important; }
+}
+
+.brandbar-contact {
+  min-width: 320px;
+}
+@media (max-width: 768px) {
+  .brandbar-contact {
+    min-width: 0 !important;
+  }
+}
+
+/* Tables overflow */
+.table-scroll { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+
+/* Padding on mobile */
+@media (max-width: 768px) {
+  .section-pad { padding: 24px 16px !important; }
+  .section-pad-top { padding-top: 32px !important; padding-bottom: 0 !important; }
+}
+
+/* Admin dashboard stats */
+.admin-stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+@media (max-width: 900px) {
+  .admin-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* Stat cards (ochiq ma'lumotlar etc.) */
+.stat-cards-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+@media (max-width: 900px) {
+  .stat-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* Sport turlari: 4 cols → 2 */
+.sport-types-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+}
+@media (max-width: 900px) {
+  .sport-types-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 600px) {
+  .sport-types-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* Davlat xizmatlari services */
+.davlat-services-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+}
+@media (max-width: 768px) {
+  .davlat-services-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 600px) {
+  .davlat-services-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Natijalar medals */
+.medals-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 16px !important;
+}
+@media (max-width: 900px) {
+  .medals-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 600px) {
+  .medals-grid { grid-template-columns: 1fr !important; }
+}
+
+/* PageHero shell + title */
+.page-hero-shell {
+  padding: 40px 0 32px;
+}
+@media (max-width: 768px) {
+  .page-hero-shell {
+    padding: 24px 0 20px !important;
+  }
+  .page-hero-title {
+    font-size: 1.3rem !important;
+  }
+}
+
+/* Hujjatlar list */
+@media (max-width: 600px) {
+  .doc-row { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+}
+
+/* ─── HIDE/SHOW ─── */
+@media (max-width: 768px) {
+  .desktop-only { display: none !important; }
 }
 @media (min-width: 769px) {
-  .r-mobile-only { display: none !important; }
+  .mobile-only { display: none !important; }
 }
 
+/* Admin mobile sidebar */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.25s;
+    z-index: 100;
+  }
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+  .admin-main {
+    margin-left: 0 !important;
+  }
+}

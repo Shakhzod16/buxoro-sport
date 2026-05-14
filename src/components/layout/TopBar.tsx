@@ -4,10 +4,8 @@ import { useEffect, useState } from "react";
 import { Eye, X } from "lucide-react";
 
 import SportTashkilotlariDrawer from "@/components/shared/SportTashkilotlariDrawer";
-import { useResponsive } from "@/hooks/useResponsive";
 
 export function TopBar() {
-  const { isMobile } = useResponsive();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [fontSize, setFontSize] = useState(100);
@@ -29,10 +27,7 @@ export function TopBar() {
   return (
     <>
       <div className="border-b border-neutral-border bg-white">
-        <div
-          className="mx-auto flex max-w-[1280px] items-center justify-between px-3"
-          style={{ height: isMobile ? "48px" : "72px" }}
-        >
+        <div className="topbar-inner mx-auto flex max-w-[1280px] items-center justify-between px-3">
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
@@ -53,7 +48,7 @@ export function TopBar() {
             Sport tashkilotlari →
           </button>
 
-          <div style={{ display: "flex", gap: "26px", alignItems: "center", marginRight: "auto", marginLeft: "26px" }}>
+          <div className="topbar-logos" style={{ display: "flex", gap: "26px", alignItems: "center", marginRight: "auto", marginLeft: "26px" }}>
             <a
               href="/sport-portali"
               style={{ textDecoration: "none", display: "flex", gap: "12px", alignItems: "center", color: "inherit" }}
@@ -72,13 +67,11 @@ export function TopBar() {
               >
                 🏅
               </div>
-              {!isMobile ? (
-              <div style={{ lineHeight: 1.25 }}>
+              <div className="desktop-only" style={{ lineHeight: 1.25 }}>
                 <div style={{ fontWeight: 500, fontSize: "0.7rem", color: "#222A37", letterSpacing: "0.2px" }}>O&apos;ZBEKISTON</div>
                 <div style={{ fontWeight: 500, fontSize: "0.7rem", color: "#222A37", letterSpacing: "0.2px" }}>RESPUBLIKASI</div>
                 <div style={{ fontWeight: 500, fontSize: "0.7rem", color: "#222A37", letterSpacing: "0.2px" }}>SPORT PORTALI</div>
               </div>
-              ) : null}
             </a>
 
             <a
@@ -99,12 +92,10 @@ export function TopBar() {
               >
                 🏛️
               </div>
-              {!isMobile ? (
-              <div style={{ lineHeight: 1.15 }}>
+              <div className="desktop-only" style={{ lineHeight: 1.15 }}>
                 <div style={{ fontWeight: 700, fontSize: "0.75rem", color: "#1E5C8E", letterSpacing: "0.4px" }}>PREZIDENT</div>
                 <div style={{ fontWeight: 700, fontSize: "0.75rem", color: "#1E5C8E", letterSpacing: "0.4px" }}>OLIMPIADASI</div>
               </div>
-              ) : null}
             </a>
           </div>
 

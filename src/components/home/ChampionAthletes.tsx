@@ -1,10 +1,8 @@
 'use client'
 import { useData } from '@/context/DataContext'
-import { useResponsive } from '@/hooks/useResponsive'
 
 export default function ChampionAthletes() {
   const { athletes } = useData()
-  const { isMobile, isTablet } = useResponsive()
 
   const getGradient = (medal: string) => {
     if (medal === 'Oltin') return 'linear-gradient(135deg, #1A3C6B, #2563EB)'
@@ -35,9 +33,8 @@ export default function ChampionAthletes() {
       </div>
 
       <div
+        className="athletes-grid"
         style={{
-          display: "grid",
-          gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : isTablet ? "repeat(3, 1fr)" : "repeat(4, 1fr)",
           gap: "16px",
         }}
       >

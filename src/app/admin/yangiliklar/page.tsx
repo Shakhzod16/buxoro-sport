@@ -79,7 +79,7 @@ export default function NewsAdmin() {
             outline: "none",
           }}
         />
-        <div style={{ overflowX: "auto" }}>
+        <div className="table-scroll">
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ background: "#F7FAFC", borderRadius: 8 }}>

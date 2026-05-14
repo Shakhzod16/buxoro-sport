@@ -7,7 +7,6 @@ import PageHero from "@/components/sections/PageHero";
 import PageLayout from "@/components/sections/PageLayout";
 import SidebarNav from "@/components/sections/SidebarNav";
 import { useData } from "@/context/DataContext";
-import { useResponsive } from "@/hooks/useResponsive";
 
 const SIDEBAR_ITEMS = [
   { label: "Faoliyat", href: "/faoliyat" },
@@ -21,7 +20,6 @@ const YEARS = [2024, 2025, 2026] as const;
 
 export default function NatijalarPage() {
   const pathname = usePathname();
-  const { isMobile, isTablet } = useResponsive();
   const { athletes } = useData();
   const [year, setYear] = useState<(typeof YEARS)[number]>(2026);
 
@@ -67,14 +65,8 @@ export default function NatijalarPage() {
             ))}
           </div>
 
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: isMobile ? "1fr" : isTablet ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
-                gap: "16px",
-              }}
-            >
+          <div className="table-scroll">
+            <div className="medals-grid" style={{ display: "grid" }}>
               {(
                 [
                   { key: "Oltin" as const, label: "Oltin", color: "#B45309", bg: "#FEF3C7" },

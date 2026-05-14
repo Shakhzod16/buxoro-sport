@@ -1,8 +1,4 @@
-"use client";
-
 import Link from "next/link";
-
-import { useResponsive } from "@/hooks/useResponsive";
 
 interface PageHeroProps {
   title: string;
@@ -11,13 +7,11 @@ interface PageHeroProps {
 }
 
 export default function PageHero({ title, subtitle, breadcrumb }: PageHeroProps) {
-  const { isMobile } = useResponsive();
-
   return (
     <div
+      className="page-hero-shell"
       style={{
         background: "linear-gradient(135deg, #0F2447 0%, #1A3C6B 100%)",
-        padding: isMobile ? "24px 0 20px" : "40px 0 32px",
       }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 24px" }}>
@@ -42,7 +36,9 @@ export default function PageHero({ title, subtitle, breadcrumb }: PageHeroProps)
             ))}
           </div>
         )}
-        <h1 style={{ color: "#fff", fontSize: isMobile ? "1.3rem" : "1.75rem", fontWeight: 800, margin: 0 }}>{title}</h1>
+        <h1 className="page-hero-title" style={{ color: "#fff", fontSize: "1.75rem", fontWeight: 800, margin: 0 }}>
+          {title}
+        </h1>
         {subtitle && (
           <p style={{ color: "rgba(255,255,255,0.75)", marginTop: "8px", fontSize: "0.95rem", marginBottom: 0 }}>
             {subtitle}

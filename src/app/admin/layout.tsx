@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-import { useResponsive } from "@/hooks/useResponsive";
-
 const menuItems = [
   { icon: "📊", label: "Dashboard", href: "/admin" },
   { icon: "📰", label: "Yangiliklar", href: "/admin/yangiliklar" },
@@ -20,13 +18,8 @@ const menuItems = [
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { isMobile } = useResponsive();
   const [collapsed, setCollapsed] = useState(false);
-  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    if (!isMobile) setMobileSidebarOpen(false);
-  }, [isMobile]);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     if (pathname === "/admin/login") return;
@@ -41,19 +34,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     router.push("/admin/login");
   };
 
-  const closeMobileNav = () => {
-    if (isMobile) setMobileSidebarOpen(false);
-  };
+  const closeMobileNav = () => setMobileOpen(false);
 
-  const showNavLabels = isMobile || !collapsed;
+  const showNavLabels = !collapsed || mobileOpen;
 
   if (pathname === "/admin/login") return <>{children}</>;
 
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "#F5F7FA" }}>
       <aside
+        className={`admin-sidebar${mobileOpen ? " open" : ""}`}
         style={{
-          width: isMobile ? 240 : collapsed ? 64 : 240,
+          width: collapsed ? 64 : 240,
           background: "#0F2447",
           transition: "transform 0.25s, width 0.2s",
           display: "flex",
@@ -62,9 +54,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           top: 0,
           left: 0,
           bottom: 0,
-          zIndex: isMobile ? 200 : 100,
+          zIndex: 100,
           overflow: "hidden",
-          transform: isMobile && !mobileSidebarOpen ? "translateX(-100%)" : "translateX(0)",
         }}
       >
         <div style={{ padding: "20px 16px", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
@@ -72,11 +63,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             style={{
               color: "#fff",
               fontWeight: 800,
-              fontSize: collapsed && !isMobile ? "1rem" : "0.875rem",
+              fontSize: collapsed && !mobileOpen ? "1rem" : "0.875rem",
               whiteSpace: "nowrap",
             }}
           >
-            {collapsed && !isMobile ? "🏟️" : "🏟️ BUXORO SPORT"}
+            {collapsed && !mobileOpen ? "🏟️" : "🏟️ BUXORO SPORT"}
           </div>
           {showNavLabels && (
             <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.7rem", marginTop: 2 }}>Admin Panel</div>
@@ -113,22 +104,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        {!isMobile && (
-          <button
-            type="button"
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              padding: "16px",
-              background: "none",
-              border: "none",
-              color: "rgba(255,255,255,0.5)",
-              cursor: "pointer",
-              fontSize: "1.2rem",
-            }}
-          >
-            {collapsed ? "→" : "←"}
-          </button>
-        )}
+        <button
+          type="button"
+          className="desktop-only"
+          onClick={() => setCollapsed(!collapsed)}
+          style={{
+            padding: "16px",
+            background: "none",
+            border: "none",
+            color: "rgba(255,255,255,0.5)",
+            cursor: "pointer",
+            fontSize: "1.2rem",
+          }}
+        >
+          {collapsed ? "→" : "←"}
+        </button>
 
         <button
           type="button"
@@ -147,21 +137,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             width: "100%",
           }}
         >
-          {collapsed && !isMobile ? "🚪" : "🚪 Chiqish"}
+          {collapsed && !mobileOpen ? "🚪" : "🚪 Chiqish"}
         </button>
       </aside>
 
-      {isMobile && mobileSidebarOpen && (
+      {mobileOpen && (
         <div
           role="presentation"
-          onClick={() => setMobileSidebarOpen(false)}
-          style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", zIndex: 199 }}
+          className="mobile-only"
+          onClick={() => setMobileOpen(false)}
+          style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", zIndex: 99 }}
         />
       )}
 
       <div
+        className="admin-main"
         style={{
-          marginLeft: isMobile ? 0 : collapsed ? 64 : 240,
+          marginLeft: collapsed ? 64 : 240,
           flex: 1,
           transition: "margin-left 0.2s",
           minWidth: 0,
@@ -183,24 +175,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           }}
         >
           <div style={{ display: "flex", alignItems: "center", minWidth: 0 }}>
-            {isMobile && (
-              <button
-                type="button"
-                aria-label={mobileSidebarOpen ? "Yopish" : "Menyu"}
-                onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  fontSize: "1.4rem",
-                  marginRight: "12px",
-                  lineHeight: 1,
-                  padding: 0,
-                }}
-              >
-                ☰
-              </button>
-            )}
+            <button
+              type="button"
+              className="mobile-only"
+              aria-label={mobileOpen ? "Yopish" : "Menyu"}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: "1.4rem",
+                marginRight: "8px",
+                lineHeight: 1,
+                padding: 0,
+              }}
+            >
+              ☰
+            </button>
             <div style={{ fontWeight: 600, color: "#0F2447", fontSize: "1rem" }}>
               Buxoro Viloyati Sport Boshqarmasi — Admin
             </div>
