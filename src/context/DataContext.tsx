@@ -78,21 +78,28 @@ function saveData<T>(key: string, data: T[]) {
 
 // ── PROVIDER ──────────────────────────────────
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [news, setNews] = useState<NewsItem[]>([])
-  const [competitions, setCompetitions] = useState<Competition[]>([])
-  const [athletes, setAthletes] = useState<Athlete[]>([])
-  const [documents, setDocuments] = useState<Document[]>([])
-  const [announcements, setAnnouncements] = useState<Announcement[]>([])
+  const [news, setNews] = useState<NewsItem[]>(initialNews)
+  const [competitions, setCompetitions] = useState<Competition[]>(initialCompetitions)
+  const [athletes, setAthletes] = useState<Athlete[]>(initialAthletes)
+  const [documents, setDocuments] = useState<Document[]>(initialDocuments)
+  const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements)
 
-  // Load from localStorage on mount (deferred to avoid sync setState-in-effect lint / cascading renders)
   useEffect(() => {
-    queueMicrotask(() => {
-      setNews(loadData('bxs_news', initialNews))
-      setCompetitions(loadData('bxs_competitions', initialCompetitions))
-      setAthletes(loadData('bxs_athletes', initialAthletes))
-      setDocuments(loadData('bxs_documents', initialDocuments))
-      setAnnouncements(loadData('bxs_announcements', initialAnnouncements))
-    })
+    // Only override if user has saved data in localStorage
+    const savedNews = localStorage.getItem('bxs_news')
+    if (savedNews) { try { setNews(JSON.parse(savedNews)) } catch {} }
+
+    const savedComps = localStorage.getItem('bxs_competitions')
+    if (savedComps) { try { setCompetitions(JSON.parse(savedComps)) } catch {} }
+
+    const savedAthletes = localStorage.getItem('bxs_athletes')
+    if (savedAthletes) { try { setAthletes(JSON.parse(savedAthletes)) } catch {} }
+
+    const savedDocs = localStorage.getItem('bxs_documents')
+    if (savedDocs) { try { setDocuments(JSON.parse(savedDocs)) } catch {} }
+
+    const savedAnn = localStorage.getItem('bxs_announcements')
+    if (savedAnn) { try { setAnnouncements(JSON.parse(savedAnn)) } catch {} }
   }, [])
 
   // ── NEWS CRUD ──

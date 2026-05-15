@@ -238,11 +238,6 @@ export default function Header() {
       }}
     >
       <TopBar />
-      <div style={{ background: "#fff", borderBottom: "1px solid #fecaca", padding: "5px 0", textAlign: "center" }}>
-        <p style={{ color: "#dc2626", fontWeight: 700, fontSize: "0.85rem", margin: 0 }}>
-          Sayt test rejimida ishlamoqda
-        </p>
-      </div>
       <BrandBar />
       {isMobile ? <MobileNavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} /> : <DesktopNavBar onOpenSearch={() => setSearchOpen(true)} />}
       <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />

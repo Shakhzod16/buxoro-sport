@@ -3,14 +3,14 @@
 import { useData } from '@/context/DataContext'
 
 export default function StatisticsBar() {
-  const { news, competitions, athletes, documents } = useData()
+  const { competitions } = useData()
 
   const stats = [
-    { icon: '🏟️', number: '47',              label: 'Stadion va sport inshootlari' },
-    { icon: '🥊', number: `${competitions.length * 12}+`, label: 'Sport klublari' },
-    { icon: '👥', number: `${athletes.length * 120}+`,    label: 'Faol sportchilar' },
-    { icon: '🏅', number: `${competitions.length * 40}`,  label: 'Musobaqalar (yiliga)' },
-    { icon: '🎓', number: '12',              label: 'Sport maktablari' },
+    { icon: '🏟️', number: '47',     label: 'Stadion va sport inshootlari' },
+    { icon: '🥊', number: '280+',   label: 'Sport klublari' },
+    { icon: '👥', number: '15 000', label: 'Faol sportchilar' },
+    { icon: '🏅', number: `${competitions.length > 3 ? competitions.length * 15 : 120}`, label: 'Musobaqalar (yiliga)' },
+    { icon: '🎓', number: '12',     label: 'Sport maktablari' },
   ]
 
   return (
