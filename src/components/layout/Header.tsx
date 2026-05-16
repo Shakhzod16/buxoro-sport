@@ -13,6 +13,7 @@ const DesktopNavBar = ({ onOpenSearch }: { onOpenSearch: () => void }) => {
 
   return (
     <nav
+      className="desktop-nav"
       style={{
         position: "sticky",
         top: 0,
@@ -24,6 +25,7 @@ const DesktopNavBar = ({ onOpenSearch }: { onOpenSearch: () => void }) => {
       }}
     >
       <div
+        className="desktop-nav-inner"
         style={{
           maxWidth: "1280px",
           margin: "0 auto",
@@ -140,6 +142,7 @@ const MobileNavBar = ({
 
   return (
     <div
+      className="mobile-nav"
       style={{
         position: "sticky",
         top: 0,

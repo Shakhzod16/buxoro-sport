@@ -199,7 +199,7 @@ export default function RegionsMap() {
           <div style={{ fontWeight: 800, fontSize: '1rem', color: '#111827', marginBottom: '16px', letterSpacing: '0.05em' }}>
             HUDUDLAR
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          <div className="hududlar-grid" style={{ display: 'grid', gap: '8px' }}>
             {regions.map((r) => {
               const isSelected = selected === r.id
               const isHovered = hovered === r.id && !isSelected

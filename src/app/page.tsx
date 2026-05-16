@@ -12,9 +12,7 @@ export default function HomePage() {
       <HeroBanner />
       <StatisticsBar />
       <QuickServices />
-      <section className="mx-auto max-w-7xl px-4 py-12">
-        <LatestNews />
-      </section>
+      <LatestNews />
       <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px 48px' }}>
         <AnnouncementsSection />
       </section>

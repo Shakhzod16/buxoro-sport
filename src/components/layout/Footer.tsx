@@ -25,14 +25,7 @@ export default function Footer() {
 
   return (
     <footer style={{ background: '#0F2447', color: '#fff', padding: '48px 0 0 0', marginTop: '48px' }}>
-      <div
-        className="footer-grid"
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '0 24px',
-        }}
-      >
+      <div className="footer-grid">
 
         {/* Col 1 */}
         <div>

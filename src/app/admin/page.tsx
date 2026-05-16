@@ -18,7 +18,7 @@ export default function AdminDashboard() {
     <div>
       <h1 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#0F2447", marginBottom: 24 }}>Dashboard</h1>
 
-      <div className="admin-stats-grid" style={{ display: "grid", gap: 16, marginBottom: 32 }}>
+      <div className="admin-stats-grid">
         {stats.map((s, i) => (
           <div
             key={i}

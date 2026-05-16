@@ -106,7 +106,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         <button
           type="button"
-          className="desktop-only"
+          className="hide-mobile"
           onClick={() => setCollapsed(!collapsed)}
           style={{
             padding: "16px",
@@ -141,17 +141,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </button>
       </aside>
 
-      {mobileOpen && (
-        <div
-          role="presentation"
-          className="mobile-only"
-          onClick={() => setMobileOpen(false)}
-          style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", zIndex: 99 }}
-        />
-      )}
-
       <div
-        className="admin-main"
+        className="admin-main-content"
         style={{
           marginLeft: collapsed ? 64 : 240,
           flex: 1,
@@ -175,28 +166,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           }}
         >
           <div style={{ display: "flex", alignItems: "center", minWidth: 0 }}>
+            <div style={{ fontWeight: 600, color: "#0F2447", fontSize: "1rem" }}>
+              Buxoro Viloyati Sport Boshqarmasi — Admin
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
             <button
               type="button"
-              className="mobile-only"
-              aria-label={mobileOpen ? "Yopish" : "Menyu"}
               onClick={() => setMobileOpen(!mobileOpen)}
+              className="show-mobile-only"
+              aria-label={mobileOpen ? "Yopish" : "Menyu"}
               style={{
                 background: "none",
                 border: "none",
                 cursor: "pointer",
                 fontSize: "1.4rem",
                 marginRight: "8px",
-                lineHeight: 1,
-                padding: 0,
               }}
             >
               ☰
             </button>
-            <div style={{ fontWeight: 600, color: "#0F2447", fontSize: "1rem" }}>
-              Buxoro Viloyati Sport Boshqarmasi — Admin
-            </div>
-          </div>
-          <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap" }}>
             <span style={{ fontSize: "0.875rem", color: "#718096" }}>👤 Administrator</span>
             <Link
               href="/"
@@ -214,6 +203,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </Link>
           </div>
         </header>
+
+        {mobileOpen && (
+          <div
+            role="presentation"
+            className="show-mobile-only"
+            onClick={() => setMobileOpen(false)}
+            style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 199 }}
+          />
+        )}
 
         <main style={{ padding: "24px" }}>{children}</main>
       </div>

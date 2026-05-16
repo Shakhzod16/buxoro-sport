@@ -14,22 +14,26 @@ export default function StatisticsBar() {
   ]
 
   return (
-    <div style={{ background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', padding: '24px 0' }}>
-      <div
-        className="stats-grid"
-        style={{
-          maxWidth: '1280px', margin: '0 auto', padding: '0 24px',
-          gap: '8px',
-        }}
-      >
+    <div className="stats-bar">
+      <div className="stats-grid">
         {stats.map((s, i) => (
-          <div key={i} style={{
-            display: 'flex', flexDirection: 'column', alignItems: 'center',
-            padding: '8px 16px'
-          }}>
+          <div
+            key={i}
+            className="stats-item"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              padding: '8px 16px',
+            }}
+          >
             <span style={{ fontSize: '1.8rem' }}>{s.icon}</span>
-            <span style={{ fontSize: '1.8rem', fontWeight: 800, color: '#1A3C6B', lineHeight: 1.2 }}>{s.number}</span>
-            <span style={{ fontSize: '0.75rem', color: '#718096', textAlign: 'center', marginTop: '4px' }}>{s.label}</span>
+            <span className="stats-number" style={{ fontSize: '1.8rem', fontWeight: 800, color: '#1A3C6B', lineHeight: 1.2 }}>
+              {s.number}
+            </span>
+            <span className="stats-label" style={{ fontSize: '0.75rem', color: '#718096', textAlign: 'center', marginTop: '4px' }}>
+              {s.label}
+            </span>
           </div>
         ))}
       </div>

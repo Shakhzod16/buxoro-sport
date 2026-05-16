@@ -36,7 +36,7 @@ export function BrandBar() {
         }}
       >
         <p
-          className="brandbar-title"
+          className="brandbar-org-name"
           style={{
             margin: 0,
             color: "#101828",
@@ -50,7 +50,7 @@ export function BrandBar() {
         </p>
 
         <div
-          className="brandbar-contact"
+          className="brandbar-phone-block"
           style={{
             textAlign: "right",
             paddingRight: "4px",
@@ -82,7 +82,7 @@ export function BrandBar() {
               }}
             >
               <Phone className="h-[20px] w-[20px]" />
-              <span className="desktop-only">{phone}</span>
+              <span className="hide-mobile">{phone}</span>
             </a>
 
             <a

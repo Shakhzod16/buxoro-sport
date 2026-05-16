@@ -7,16 +7,9 @@ interface PageLayoutProps {
 
 export default function PageLayout({ sidebar, children }: PageLayoutProps) {
   return (
-    <div
-      className="page-layout-grid page-layout-outer"
-      style={{
-        maxWidth: "1280px",
-        margin: "0 auto",
-        alignItems: "start",
-      }}
-    >
+    <div className="page-layout-wrap">
       <aside
-        className="page-layout-aside"
+        className="page-sidebar"
         style={{
           background: "#fff",
           borderRadius: "12px",

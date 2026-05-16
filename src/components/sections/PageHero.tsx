@@ -8,13 +8,8 @@ interface PageHeroProps {
 
 export default function PageHero({ title, subtitle, breadcrumb }: PageHeroProps) {
   return (
-    <div
-      className="page-hero-shell"
-      style={{
-        background: "linear-gradient(135deg, #0F2447 0%, #1A3C6B 100%)",
-      }}
-    >
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 24px" }}>
+    <div className="page-hero">
+      <div className="page-hero-inner">
         {breadcrumb && (
           <div style={{ display: "flex", gap: "8px", marginBottom: "12px", fontSize: "0.8rem", flexWrap: "wrap" }}>
             <Link href="/" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none" }}>
@@ -36,7 +31,7 @@ export default function PageHero({ title, subtitle, breadcrumb }: PageHeroProps)
             ))}
           </div>
         )}
-        <h1 className="page-hero-title" style={{ color: "#fff", fontSize: "1.75rem", fontWeight: 800, margin: 0 }}>
+        <h1 className="page-hero-title" style={{ margin: 0 }}>
           {title}
         </h1>
         {subtitle && (
