@@ -6,6 +6,7 @@ import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 
 import { useData } from "@/context/DataContext";
+import RegionsMap from "@/components/home/RegionsMap";
 
 const MEDAL_ROWS = [
   { rank: 1, name: "Buxoro viloyati", gold: 8, silver: 0, bronze: 0, total: 8 },
@@ -34,23 +35,6 @@ const MEDAL_SPORT_ROWS = [
 ] as const;
 
 const MEDAL_SPORT_FOOTER = { gold: 136, silver: 134, bronze: 227, total: 497 } as const;
-
-const REGIONS = [
-  "Andijon",
-  "Buxoro",
-  "Farg'ona",
-  "Jizzax",
-  "Namangan",
-  "Navoiy",
-  "Qashqadaryo",
-  "Qoraqalpog'iston Respublikasi",
-  "Samarqand",
-  "Sirdaryo",
-  "Surxondaryo",
-  "Toshkent City",
-  "Toshkent",
-  "Xorazm",
-] as const;
 
 const MOST_VIEWED = [
   {
@@ -976,191 +960,9 @@ export default function SportPortalPage() {
         )}
       </div>
 
-      {/* ═══ 3. BOSHQARMALAR XARITA ═══ */}
+      {/* ═══ 3. BOSHQARMALAR XARITA (bosh sahifa bilan bir xil RegionsMap) ═══ */}
       <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "48px 24px 0" }}>
-        <h2 style={{ fontSize: "1rem", fontWeight: 800, color: "#1A3C6B", marginBottom: "16px", letterSpacing: "0.05em" }}>
-          BOSHQARMALAR
-        </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "55% 45%", gap: "24px" }}>
-          <div
-            style={{
-              background: "#fff",
-              borderRadius: "16px",
-              border: "1px solid #E2E8F0",
-              padding: "24px",
-              minHeight: "300px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <svg viewBox="0 0 760 420" style={{ width: "100%", height: "auto" }}>
-              <rect x="0" y="0" width="760" height="420" fill="#F8FAFC" rx="8" />
-
-              <path
-                d="M 20,20 L 180,15 L 200,25 L 210,60 L 205,100 L 220,130 L 215,160 L 195,175 L 170,180 L 145,185 L 120,180 L 95,190 L 70,185 L 50,175 L 30,158 L 18,135 L 12,105 L 10,70 L 14,45 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="105" y="105" textAnchor="middle" fontSize="9" fill="#4A5568" fontWeight="600">
-                Qoraqalpog&apos;iston
-              </text>
-
-              <path
-                d="M 180,15 L 230,12 L 245,40 L 240,70 L 225,85 L 205,88 L 192,75 L 188,50 L 183,30 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="213" y="52" textAnchor="middle" fontSize="8" fill="#4A5568">
-                Xorazm
-              </text>
-
-              <path
-                d="M 195,175 L 215,160 L 240,145 L 275,138 L 310,145 L 335,158 L 345,178 L 338,200 L 318,215 L 295,222 L 268,225 L 242,220 L 220,208 L 205,192 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="272" y="185" textAnchor="middle" fontSize="9" fill="#4A5568" fontWeight="600">
-                Navoiy
-              </text>
-
-              <path
-                d="M 50,175 L 95,190 L 120,180 L 145,185 L 170,180 L 195,175 L 205,192 L 215,210 L 222,235 L 215,262 L 200,278 L 180,285 L 155,282 L 130,272 L 108,258 L 90,242 L 72,228 L 55,215 L 42,200 L 40,185 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="130" y="235" textAnchor="middle" fontSize="9" fill="#4A5568" fontWeight="600">
-                Buxoro
-              </text>
-
-              <path
-                d="M 335,158 L 362,148 L 390,152 L 415,162 L 425,182 L 418,202 L 400,215 L 378,220 L 355,215 L 338,200 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="381" y="186" textAnchor="middle" fontSize="8" fill="#4A5568">
-                Samarqand
-              </text>
-
-              <path
-                d="M 318,215 L 338,200 L 355,215 L 378,220 L 398,232 L 408,252 L 400,272 L 382,282 L 358,285 L 335,278 L 318,262 L 310,242 L 312,225 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="358" y="252" textAnchor="middle" fontSize="8" fill="#4A5568">
-                Qashqadaryo
-              </text>
-
-              <path
-                d="M 382,282 L 400,272 L 418,278 L 435,292 L 440,312 L 430,332 L 412,340 L 392,338 L 375,325 L 368,305 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="404" y="312" textAnchor="middle" fontSize="8" fill="#4A5568">
-                Surxondaryo
-              </text>
-
-              <path
-                d="M 390,152 L 418,142 L 445,148 L 462,162 L 465,182 L 452,198 L 432,205 L 415,202 L 400,188 L 392,170 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="428" y="177" textAnchor="middle" fontSize="8" fill="#4A5568">
-                Jizzax
-              </text>
-
-              <path
-                d="M 445,148 L 472,138 L 498,142 L 515,158 L 515,178 L 500,188 L 480,192 L 462,185 L 452,170 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="482" y="167" textAnchor="middle" fontSize="8" fill="#4A5568">
-                Sirdaryo
-              </text>
-
-              <path
-                d="M 498,142 L 525,132 L 552,128 L 578,135 L 592,152 L 588,172 L 572,182 L 552,185 L 532,180 L 515,168 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="545" y="160" textAnchor="middle" fontSize="8" fill="#4A5568">
-                Toshkent
-              </text>
-
-              <circle cx="548" cy="158" r="6" fill="#9CA3AF" stroke="#fff" strokeWidth={1.5} />
-
-              <path
-                d="M 552,128 L 578,118 L 608,115 L 632,122 L 645,138 L 638,155 L 620,162 L 598,160 L 578,152 L 562,142 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="598" y="140" textAnchor="middle" fontSize="8" fill="#4A5568">
-                Namangan
-              </text>
-
-              <path
-                d="M 632,122 L 660,118 L 688,125 L 700,142 L 695,158 L 678,165 L 658,162 L 642,150 L 636,135 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="666" y="143" textAnchor="middle" fontSize="8" fill="#4A5568">
-                Andijon
-              </text>
-
-              <path
-                d="M 620,162 L 638,155 L 658,162 L 672,175 L 668,192 L 652,200 L 632,198 L 615,185 L 610,170 Z"
-                fill="#CBD5E0"
-                stroke="#fff"
-                strokeWidth={2}
-              />
-              <text x="640" y="180" textAnchor="middle" fontSize="8" fill="#4A5568">
-                Farg&apos;ona
-              </text>
-            </svg>
-          </div>
-          <div style={{ background: "#F3F4F6", borderRadius: "16px", padding: "20px" }}>
-            <div style={{ fontWeight: 800, fontSize: "0.9rem", marginBottom: "16px", letterSpacing: "0.05em" }}>HUDUDLAR</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-              {REGIONS.map((r, i) => (
-                <Link
-                  key={`${r}-${i}`}
-                  href="/tashkilot"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "10px 14px",
-                    borderRadius: "8px",
-                    border: "1px solid #E2E8F0",
-                    background: "#fff",
-                    color: "#374151",
-                    textDecoration: "none",
-                    fontSize: "0.82rem",
-                    fontWeight: 500,
-                  }}
-                >
-                  <span>
-                    🏢{" "}
-                    <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r}</span>
-                  </span>
-                  <span>→</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
+        <RegionsMap />
       </div>
 
       {/* ═══ 4. OLIMPIADA NATIJALARI ═══ */}
