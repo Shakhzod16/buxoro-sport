@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+
+import type { AthleteResult } from "@/types/models";
+import { useData } from "@/context/DataContext";
 
 const medalData = [
   { rank: 1, name: "Toshkent shahar", gold: 26, silver: 14, bronze: 8, total: 48 },
@@ -209,80 +212,40 @@ const sportData = [
 
 type SportRegionAthlete = { name: string; org: string; program: string; score?: number };
 
-const sportRegionAthletes: Record<
-  string,
-  Record<
-    string,
-    {
-      oltin: SportRegionAthlete[];
-      kumush: SportRegionAthlete[];
-      bronza: SportRegionAthlete[];
-    }
-  >
-> = {
-  Boks: {
-    "Toshkent viloyati": {
-      oltin: [
-        { name: "ABDUKАDIROV АSILBEK АBDUMАLIK O'G'LI", org: "Chirchiq olimpiya va paralimpiya sport turlariga tayyorlash markazi", program: "60", score: 60 },
-        { name: "TURGUNOVA SAMIRA MADYAR QIZI", org: "Chirchiq olimpiya va paralimpiya sport turlariga tayyorlash markazi", program: "75", score: 75 },
-        { name: "Usuba'liev Аsliddin Muzaffar o'g'li", org: "Angren shahar 2-sonli sport maktabi", program: "57", score: 57 },
-        { name: "SULTАNBOEV АSАDBEK BOBOMURАT O'G'LI", org: "Respublika olimpiya va paralimpiya sport turlariga tayyorlash markazi", program: "80+", score: 80 },
-        { name: "Nishonov Nodirbek G'ulom o'g'li", org: "Chirchiq olimpiya va paralimpiya sport turlariga tayyorlash markazi", program: "50", score: 50 },
-      ],
-      kumush: [
-        { name: "IKROMOV ILG'ORJON ISAQJON-O'G'LI", org: "Chirchiq olimpiya va paralimpiya sport turlariga tayyorlash markazi", program: "54", score: 54 },
-        { name: "Fovmidd'inov Javohir G'ulomidd'in o'g'li", org: "Boks bo'yicha Bahodir Jalolov sport mahorati maktabi", program: "50", score: 50 },
-      ],
-      bronza: [
-        { name: "Xusanova Mubina Zohid qizi", org: "Sportning yakka kurash turlariga ixtisoslashtirilgan SM", program: "60", score: 60 },
-        { name: "Nаzirova Feruza Nabi qizi", org: "Bekobod shahar sport maktabi", program: "80", score: 80 },
-        { name: "SАYDULLАEV RUSHEN RUSTАMOVICH", org: "Sportning yakka kurash turlariga ixtisoslashtirilgan SM", program: "63", score: 63 },
-        { name: "MAMURJONOV BEHRUZ ILYOS-O'G'LI", org: "Chirchiq olimpiya va paralimpiya sport turlariga tayyorlash markazi", program: "52", score: 52 },
-        { name: "MAHMUDJОNOVA FARZОNABONU ELMUROD QIZI", org: "Chirchiq olimpiya va paralimpiya sport turlariga tayyorlash markazi", program: "50", score: 50 },
-        { name: "Pulatova Mubinabonu Rustam qizi", org: "Sportning yakka kurash turlariga ixtisoslashtirilgan SM", program: "50", score: 50 },
-      ],
-    },
-    "Namangan viloyati": {
-      oltin: [
-        { name: "Тошматов Жасур Шухрат ўғли", org: "Namangan viloyat sport maktabi", program: "60" },
-        { name: "Юсупова Нилуфар Нодир қизи", org: "Namangan viloyat sport maktabi", program: "57" },
-        { name: "Холиков Санжар Улуғбек ўғли", org: "Namangan shahar sport maktabi", program: "75" },
-        { name: "Раҳимова Зулайхо Бахром қизи", org: "Namangan viloyat sport maktabi", program: "50" },
-      ],
-      kumush: [
-        { name: "Матмусаев Фирдавс Алишер ўғли", org: "Namangan viloyat sport maktabi", program: "63" },
-        { name: "Хасанова Малика Зафар қизи", org: "Namangan shahar sport maktabi", program: "48" },
-        { name: "Кодиров Бобур Фарход ўғли", org: "Namangan viloyat sport maktabi", program: "80" },
-        { name: "Нишонова Дилноза Рустам қизи", org: "Namangan viloyat sport maktabi", program: "54" },
-        { name: "Усмонов Жамшид Баҳром ўғли", org: "Namangan shahar sport maktabi", program: "69" },
-        { name: "Холматова Нилуфар Исмоил қизи", org: "Namangan viloyat sport maktabi", program: "60" },
-      ],
-      bronza: [{ name: "Юлдашев Акром Баҳодир ўғли", org: "Namangan viloyat sport maktabi", program: "54" }],
-    },
-    "Buxoro viloyati": {
-      oltin: [
-        { name: "Ibodulloev Asilbek Ilhom o'g'li", org: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi', program: "shpaga-jamoaviy" },
-        { name: "Naimov Firdavs Farruxovich", org: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi', program: "shpaga-jamoaviy" },
-        { name: "Hamroboeva Zarina Nurmatovna", org: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi', program: "shpaga-jamoaviy" },
-      ],
-      kumush: [
-        { name: "Yusupov Sherzod Bahodir", org: "Buxoro viloyat sport maktabi", program: "60" },
-        { name: "Holmatova Zulfiya Nazar qizi", org: "Buxoro viloyat sport maktabi", program: "57" },
-      ],
-      bronza: [
-        { name: "Toshmatov Akbar Rustam", org: "Buxoro viloyat sport maktabi", program: "69" },
-        { name: "Nazarova Mohira Ali qizi", org: "Buxoro viloyat sport maktabi", program: "48" },
-        { name: "Karimov Jasur Baxt o'g'li", org: "Buxoro viloyat sport maktabi", program: "75" },
-        { name: "Ergasheva Dilnoza Timur qizi", org: "Buxoro viloyat sport maktabi", program: "54" },
-        { name: "Mirzaev Bobur Alisher o'g'li", org: "Buxoro viloyat sport maktabi", program: "80" },
-        { name: "Xoliqova Sarvinoz Javlon qizi", org: "Buxoro viloyat sport maktabi", program: "50" },
-        { name: "Raxmatullayev Sardor Bahodir o'g'li", org: "Buxoro viloyat sport maktabi", program: "63" },
-      ],
-    },
-  },
-};
+function athleteResultToRow(a: AthleteResult): SportRegionAthlete {
+  return { name: a.name, org: a.org, program: a.program };
+}
 
 export default function PrezidentOlimpiadasiPage() {
+  const { results } = useData();
+
+  const sportRegionAthletes = useMemo(
+    () =>
+      results.reduce(
+        (acc, r) => {
+          if (!acc[r.sport]) acc[r.sport] = {};
+          acc[r.sport][r.region] = {
+            oltin: r.athletes.filter((a) => a.medal === "oltin").map(athleteResultToRow),
+            kumush: r.athletes.filter((a) => a.medal === "kumush").map(athleteResultToRow),
+            bronza: r.athletes.filter((a) => a.medal === "bronza").map(athleteResultToRow),
+          };
+          return acc;
+        },
+        {} as Record<
+          string,
+          Record<
+            string,
+            {
+              oltin: SportRegionAthlete[];
+              kumush: SportRegionAthlete[];
+              bronza: SportRegionAthlete[];
+            }
+          >
+        >,
+      ),
+    [results],
+  );
+
   const [activeTab, setActiveTab] = useState<"hududlar" | "sport">("hududlar");
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
@@ -580,8 +543,10 @@ export default function PrezidentOlimpiadasiPage() {
                                           <div style={{ minWidth: 0 }}>
                                             <p style={{ margin: 0, fontSize: "0.78rem", fontWeight: 700, color: "#1A3C6B", lineHeight: 1.3 }}>{a.name}</p>
                                             <p style={{ margin: "3px 0 0", fontSize: "0.7rem", color: "#718096", lineHeight: 1.4 }}>{a.org}</p>
-                                            {a.score && (
-                                              <p style={{ margin: "2px 0 0", fontSize: "0.7rem", color: "#9CA3AF" }}>Sport dasturi: {a.score}</p>
+                                            {(a.program?.trim() || a.score != null) && (
+                                              <p style={{ margin: "2px 0 0", fontSize: "0.7rem", color: "#9CA3AF" }}>
+                                                Sport dasturi: {a.program?.trim() ? a.program : a.score}
+                                              </p>
                                             )}
                                           </div>
                                         </div>
@@ -648,8 +613,10 @@ export default function PrezidentOlimpiadasiPage() {
                                           <div style={{ minWidth: 0 }}>
                                             <p style={{ margin: 0, fontSize: "0.78rem", fontWeight: 700, color: "#1A3C6B", lineHeight: 1.3 }}>{a.name}</p>
                                             <p style={{ margin: "3px 0 0", fontSize: "0.7rem", color: "#718096", lineHeight: 1.4 }}>{a.org}</p>
-                                            {a.score && (
-                                              <p style={{ margin: "2px 0 0", fontSize: "0.7rem", color: "#9CA3AF" }}>Sport dasturi: {a.score}</p>
+                                            {(a.program?.trim() || a.score != null) && (
+                                              <p style={{ margin: "2px 0 0", fontSize: "0.7rem", color: "#9CA3AF" }}>
+                                                Sport dasturi: {a.program?.trim() ? a.program : a.score}
+                                              </p>
                                             )}
                                           </div>
                                         </div>
@@ -716,8 +683,10 @@ export default function PrezidentOlimpiadasiPage() {
                                           <div style={{ minWidth: 0 }}>
                                             <p style={{ margin: 0, fontSize: "0.78rem", fontWeight: 700, color: "#1A3C6B", lineHeight: 1.3 }}>{a.name}</p>
                                             <p style={{ margin: "3px 0 0", fontSize: "0.7rem", color: "#718096", lineHeight: 1.4 }}>{a.org}</p>
-                                            {a.score && (
-                                              <p style={{ margin: "2px 0 0", fontSize: "0.7rem", color: "#9CA3AF" }}>Sport dasturi: {a.score}</p>
+                                            {(a.program?.trim() || a.score != null) && (
+                                              <p style={{ margin: "2px 0 0", fontSize: "0.7rem", color: "#9CA3AF" }}>
+                                                Sport dasturi: {a.program?.trim() ? a.program : a.score}
+                                              </p>
                                             )}
                                           </div>
                                         </div>

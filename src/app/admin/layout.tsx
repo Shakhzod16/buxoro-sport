@@ -10,6 +10,7 @@ const menuItems = [
   { icon: "📢", label: "E'lonlar", href: "/admin/elonlar" },
   { icon: "🏆", label: "Musobaqalar", href: "/admin/musobaqalar" },
   { icon: "🥇", label: "Sportchilar", href: "/admin/sportchilar" },
+  { icon: "🏆", label: "Natijalar", href: "/admin/natijalar" },
   { icon: "📄", label: "Hujjatlar", href: "/admin/hujjatlar" },
   { icon: "🛎️", label: "Xizmatlar", href: "/admin/xizmatlar" },
   { icon: "⚙️", label: "Sozlamalar", href: "/admin/sozlamalar" },

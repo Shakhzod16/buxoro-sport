@@ -42,3 +42,23 @@ export interface Announcement {
   image: string
   content: string
 }
+
+export interface AthleteResult {
+  id: number
+  name: string
+  org: string
+  program: string
+  photo: string
+  medal: 'oltin' | 'kumush' | 'bronza'
+}
+
+export interface SportRegionResult {
+  id: number
+  sport: string
+  region: string
+  gold: number
+  silver: number
+  bronze: number
+  athletes: AthleteResult[]
+  createdAt: string
+}

@@ -1,6 +1,6 @@
 'use client'
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { NewsItem, Competition, Athlete, Document, Announcement } from '@/types/models'
+import { NewsItem, Competition, Athlete, Document, Announcement, SportRegionResult, AthleteResult } from '@/types/models'
 
 // ── INITIAL DATA ──────────────────────────────
 const initialNews: NewsItem[] = [
@@ -33,6 +33,38 @@ const initialAnnouncements: Announcement[] = [
   { id: 2, title: "Xalqaro uloq-ko'pkari turniri", date: '2026-03-25', image: '', content: '' },
 ]
 
+const initialResults: SportRegionResult[] = [
+  {
+    id: 1,
+    sport: 'Boks',
+    region: 'Toshkent viloyati',
+    gold: 5,
+    silver: 2,
+    bronze: 6,
+    createdAt: '2025-01-01',
+    athletes: [
+      { id: 1, name: "ABDUKADIROV ASILBEK ABDUMALIK O'G'LI", org: 'Chirchiq olimpiya va paralimpiya sport turlariga tayyorlash markazi', program: '60', photo: '', medal: 'oltin' },
+      { id: 2, name: 'TURGUNOVA SAMIRA MADYAR QIZI', org: 'Chirchiq olimpiya va paralimpiya sport turlariga tayyorlash markazi', program: '75', photo: '', medal: 'oltin' },
+      { id: 3, name: "IKROMOV ILG'ORJON ISAQJON-O'G'LI", org: 'Chirchiq olimpiya va paralimpiya sport turlariga tayyorlash markazi', program: '54', photo: '', medal: 'kumush' },
+      { id: 4, name: 'Xusanova Mubina Zohid qizi', org: 'Sportning yakka kurash turlariga ixtisoslashtirilgan SM', program: '60', photo: '', medal: 'bronza' },
+    ],
+  },
+  {
+    id: 2,
+    sport: 'Boks',
+    region: 'Buxoro viloyati',
+    gold: 1,
+    silver: 2,
+    bronze: 7,
+    createdAt: '2025-01-01',
+    athletes: [
+      { id: 5, name: "Ibodulloev Asilbek Ilhom o'g'li", org: '"Qilichbozlik" federatsiyasi Buxoro viloyat bulimi', program: 'shpaga-jamoaviy', photo: '', medal: 'oltin' },
+      { id: 6, name: 'Yusupov Sherzod Bahodir', org: 'Buxoro viloyat sport maktabi', program: '60', photo: '', medal: 'kumush' },
+      { id: 7, name: 'Toshmatov Akbar Rustam', org: 'Buxoro viloyat sport maktabi', program: '69', photo: '', medal: 'bronza' },
+    ],
+  },
+]
+
 // ── CONTEXT TYPE ──────────────────────────────
 interface DataContextType {
   news: NewsItem[]
@@ -40,6 +72,7 @@ interface DataContextType {
   athletes: Athlete[]
   documents: Document[]
   announcements: Announcement[]
+  results: SportRegionResult[]
 
   addNews: (item: Omit<NewsItem, 'id' | 'views'>) => void
   updateNews: (id: number, item: Partial<NewsItem>) => void
@@ -57,6 +90,12 @@ interface DataContextType {
 
   addAnnouncement: (item: Omit<Announcement, 'id'>) => void
   deleteAnnouncement: (id: number) => void
+
+  addResult: (item: Omit<SportRegionResult, 'id' | 'createdAt'>) => void
+  updateResult: (id: number, item: Partial<SportRegionResult>) => void
+  deleteResult: (id: number) => void
+  addAthleteToResult: (resultId: number, athlete: Omit<AthleteResult, 'id'>) => void
+  removeAthleteFromResult: (resultId: number, athleteId: number) => void
 }
 
 const DataContext = createContext<DataContextType | null>(null)
@@ -76,6 +115,12 @@ function saveData<T>(key: string, data: T[]) {
   }
 }
 
+function saveResults(data: SportRegionResult[]) {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('bxs_results', JSON.stringify(data))
+  }
+}
+
 // ── PROVIDER ──────────────────────────────────
 export function DataProvider({ children }: { children: ReactNode }) {
   const [news, setNews] = useState<NewsItem[]>(initialNews)
@@ -83,6 +128,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [athletes, setAthletes] = useState<Athlete[]>(initialAthletes)
   const [documents, setDocuments] = useState<Document[]>(initialDocuments)
   const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements)
+  const [results, setResults] = useState<SportRegionResult[]>(initialResults)
 
   useEffect(() => {
     // Only override if user has saved data in localStorage
@@ -100,6 +146,9 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
     const savedAnn = localStorage.getItem('bxs_announcements')
     if (savedAnn) { try { setAnnouncements(JSON.parse(savedAnn)) } catch {} }
+
+    const savedResults = localStorage.getItem('bxs_results')
+    if (savedResults) { try { setResults(JSON.parse(savedResults)) } catch {} }
   }, [])
 
   // ── NEWS CRUD ──
@@ -161,14 +210,89 @@ export function DataProvider({ children }: { children: ReactNode }) {
     setAnnouncements(updated); saveData('bxs_announcements', updated)
   }
 
+  // ── SPORT REGION RESULTS CRUD ──
+  const addResult = (item: Omit<SportRegionResult, 'id' | 'createdAt'>) => {
+    const athletes = item.athletes
+    const newItem: SportRegionResult = {
+      ...item,
+      id: Date.now(),
+      athletes,
+      gold: athletes.filter(a => a.medal === 'oltin').length,
+      silver: athletes.filter(a => a.medal === 'kumush').length,
+      bronze: athletes.filter(a => a.medal === 'bronza').length,
+      createdAt: new Date().toLocaleDateString('uz-UZ'),
+    }
+    const updated = [newItem, ...results]
+    setResults(updated)
+    saveResults(updated)
+  }
+
+  const updateResult = (id: number, item: Partial<SportRegionResult>) => {
+    const updated = results.map(r => {
+      if (r.id !== id) return r
+      const merged = { ...r, ...item }
+      const athletes = item.athletes ?? r.athletes
+      return {
+        ...merged,
+        athletes,
+        gold: athletes.filter(a => a.medal === 'oltin').length,
+        silver: athletes.filter(a => a.medal === 'kumush').length,
+        bronze: athletes.filter(a => a.medal === 'bronza').length,
+      }
+    })
+    setResults(updated)
+    saveResults(updated)
+  }
+
+  const deleteResult = (id: number) => {
+    const updated = results.filter(r => r.id !== id)
+    setResults(updated)
+    saveResults(updated)
+  }
+
+  const addAthleteToResult = (resultId: number, athlete: Omit<AthleteResult, 'id'>) => {
+    const newAthlete: AthleteResult = { ...athlete, id: Date.now() }
+    const updated = results.map(r => {
+      if (r.id !== resultId) return r
+      const athletes = [...r.athletes, newAthlete]
+      return {
+        ...r,
+        athletes,
+        gold: athletes.filter(a => a.medal === 'oltin').length,
+        silver: athletes.filter(a => a.medal === 'kumush').length,
+        bronze: athletes.filter(a => a.medal === 'bronza').length,
+      }
+    })
+    setResults(updated)
+    saveResults(updated)
+  }
+
+  const removeAthleteFromResult = (resultId: number, athleteId: number) => {
+    const updated = results.map(r => {
+      if (r.id !== resultId) return r
+      const athletes = r.athletes.filter(a => a.id !== athleteId)
+      return {
+        ...r,
+        athletes,
+        gold: athletes.filter(a => a.medal === 'oltin').length,
+        silver: athletes.filter(a => a.medal === 'kumush').length,
+        bronze: athletes.filter(a => a.medal === 'bronza').length,
+      }
+    })
+    setResults(updated)
+    saveResults(updated)
+  }
+
   return (
     <DataContext.Provider value={{
-      news, competitions, athletes, documents, announcements,
+      news, competitions, athletes, documents, announcements, results,
       addNews, updateNews, deleteNews,
       addCompetition, updateCompetition, deleteCompetition,
       addAthlete, deleteAthlete,
       addDocument, deleteDocument,
       addAnnouncement, deleteAnnouncement,
+      addResult, updateResult, deleteResult,
+      addAthleteToResult, removeAthleteFromResult,
     }}>
       {children}
     </DataContext.Provider>
