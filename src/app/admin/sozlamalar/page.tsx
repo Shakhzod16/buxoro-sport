@@ -32,7 +32,9 @@ export default function AdminSettingsPage() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved) as Partial<SiteForm>;
+        /* eslint-disable react-hooks/set-state-in-effect -- load saved site config once on mount */
         setForm((prev) => ({ ...prev, ...parsed }));
+        /* eslint-enable react-hooks/set-state-in-effect */
       } catch {
         /* ignore */
       }

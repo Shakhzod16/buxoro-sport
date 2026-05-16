@@ -23,9 +23,27 @@ const initialAthletes: Athlete[] = [
 ]
 
 const initialDocuments: Document[] = [
-  { id: 1, title: "Jismoniy tarbiya va sport to'g'risidagi Qonun", category: 'Qonun', date: '2023', fileUrl: '#' },
-  { id: 2, title: 'Sport unvonlari berish reglamenti', category: 'Reglament', date: '2024', fileUrl: '#' },
-  { id: 3, title: 'Viloyat sport boshqarmasi nizomi', category: 'Buyruq', date: '2024', fileUrl: '#' },
+  {
+    id: 1,
+    title: "Jismoniy tarbiya va sport to'g'risidagi Qonun",
+    category: 'Qonun',
+    date: '2023',
+    fileUrl: 'https://lex.uz/docs/-6243887',
+  },
+  {
+    id: 2,
+    title: 'Sport unvonlari berish reglamenti',
+    category: 'Reglament',
+    date: '2024',
+    fileUrl: 'https://sport.uz/uz/documents',
+  },
+  {
+    id: 3,
+    title: 'Viloyat sport boshqarmasi nizomi',
+    category: 'Buyruq',
+    date: '2024',
+    fileUrl: 'https://buxoro-sport.vercel.app/hujjatlar',
+  },
 ]
 
 const initialAnnouncements: Announcement[] = [
@@ -100,15 +118,6 @@ interface DataContextType {
 
 const DataContext = createContext<DataContextType | null>(null)
 
-// ── HELPER: load from localStorage ────────────
-function loadData<T>(key: string, fallback: T[]): T[] {
-  if (typeof window === 'undefined') return fallback
-  try {
-    const saved = localStorage.getItem(key)
-    return saved ? JSON.parse(saved) : fallback
-  } catch { return fallback }
-}
-
 function saveData<T>(key: string, data: T[]) {
   if (typeof window !== 'undefined') {
     localStorage.setItem(key, JSON.stringify(data))
@@ -131,7 +140,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [results, setResults] = useState<SportRegionResult[]>(initialResults)
 
   useEffect(() => {
-    // Only override if user has saved data in localStorage
+    /* eslint-disable react-hooks/set-state-in-effect -- one-time hydrate from localStorage on mount */
     const savedNews = localStorage.getItem('bxs_news')
     if (savedNews) { try { setNews(JSON.parse(savedNews)) } catch {} }
 
@@ -149,6 +158,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
     const savedResults = localStorage.getItem('bxs_results')
     if (savedResults) { try { setResults(JSON.parse(savedResults)) } catch {} }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, [])
 
   // ── NEWS CRUD ──

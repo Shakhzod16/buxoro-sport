@@ -23,7 +23,9 @@ export default function SearchPanel({ isOpen, onClose }: Props) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      /* eslint-disable react-hooks/set-state-in-effect -- reset query when overlay closes */
       setQuery("");
+      /* eslint-enable react-hooks/set-state-in-effect */
     }
     return () => {
       document.body.style.overflow = "";

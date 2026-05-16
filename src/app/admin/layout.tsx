@@ -24,13 +24,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   useEffect(() => {
     if (pathname === "/admin/login") return;
-    const isLoggedIn = typeof window !== "undefined" ? localStorage.getItem("bxs_admin_auth") : null;
-    if (!isLoggedIn) {
+    if (typeof window === "undefined") return;
+    const ls = localStorage.getItem("bxs_admin_auth");
+    const cookieOk = document.cookie
+      .split("; ")
+      .some((row) => row.startsWith("bxs_admin_auth=authenticated"));
+    if (!ls && !cookieOk) {
       router.replace("/admin/login");
     }
   }, [pathname, router]);
 
   const handleLogout = () => {
+    document.cookie = "bxs_admin_auth=; path=/; max-age=0";
     localStorage.removeItem("bxs_admin_auth");
     router.push("/admin/login");
   };

@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
 import type { AthleteResult } from '@/types/models'
@@ -12,7 +13,7 @@ const SPORT_TYPES = [
   "Og'ir atletika",
   'Yengil atletika',
   'Dzyudo',
-  'Yunon-rum kurash',
+  'Yunon-rum kurashi',
   'Stol tennisi',
   'FIBA 3X3 basketbol',
   'Badiiy gimnastika',
@@ -45,7 +46,7 @@ function sportEmoji(sport: string): string {
   if (sport === 'Taekwondo WFT' || sport === 'Erkin kurash' || sport === 'Dzyudo' || sport === 'Karate') return '🥋'
   if (sport === "Og'ir atletika") return '🏋️'
   if (sport === 'Yengil atletika') return '🏃'
-  if (sport === 'Yunon-rum kurash' || sport === 'Kurash') return '🤼'
+  if (sport === 'Yunon-rum kurashi' || sport === 'Kurash') return '🤼'
   if (sport === 'Stol tennisi') return '🏓'
   if (sport === 'FIBA 3X3 basketbol') return '🏀'
   if (sport === 'Badiiy gimnastika') return '🤸'
@@ -53,13 +54,6 @@ function sportEmoji(sport: string): string {
   if (sport === 'Voleybol') return '🏐'
   if (sport === 'Futbol') return '⚽'
   return '🏅'
-}
-
-function initialsFromName(name: string): string {
-  const parts = name.trim().split(/\s+/).filter(Boolean)
-  if (parts.length === 0) return '?'
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
-  return (parts[0][0] + parts[1][0]).toUpperCase()
 }
 
 export default function AdminNatijalarPage() {
@@ -241,28 +235,36 @@ export default function AdminNatijalarPage() {
               </button>
               <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
                 {athlete.photo ? (
-                  <img
+                  <Image
                     src={athlete.photo}
-                    alt=""
-                    style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+                    alt={athlete.name}
+                    width={40}
+                    height={40}
+                    unoptimized
+                    style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
                   />
                 ) : (
                   <div
                     style={{
-                      width: 44,
-                      height: 44,
+                      width: 40,
+                      height: 40,
                       borderRadius: '50%',
-                      background: '#1A3C6B',
-                      color: '#fff',
+                      background: 'linear-gradient(135deg, #1A3C6B, #2563EB)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontWeight: 800,
-                      fontSize: '0.75rem',
+                      color: '#fff',
+                      fontSize: '0.65rem',
+                      fontWeight: 700,
                       flexShrink: 0,
                     }}
                   >
-                    {initialsFromName(athlete.name)}
+                    {athlete.name
+                      .split(/\s+/)
+                      .filter(Boolean)
+                      .slice(0, 2)
+                      .map((w) => w[0])
+                      .join('')}
                   </div>
                 )}
                 <div style={{ minWidth: 0 }}>

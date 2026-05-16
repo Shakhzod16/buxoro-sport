@@ -23,16 +23,16 @@ const medalData = [
 ];
 
 const schedule = [
-  { sport: "BOKS", icon: "🥊", days: [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0] },
-  { sport: "ERKIN KURASH (AYOLLAR KURASHI)", icon: "🤼", days: [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
-  { sport: "YUNON-RUM KURASHI", icon: "🤼", days: [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0] },
-  { sport: "TAEKVONDO WT", icon: "🥋", days: [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0] },
-  { sport: "DZYUDO", icon: "🥋", days: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0] },
-  { sport: "YENGIL ATLETIKA", icon: "🏃", days: [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0] },
-  { sport: "BASKETBOL 3x3", icon: "🏀", days: [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] },
-  { sport: "STOL TENNISI", icon: "🏓", days: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0] },
-  { sport: "OG'IR ATLETIKA", icon: "🏋️", days: [0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0] },
-  { sport: "BADIIY GIMNASTIKA", icon: "🤸", days: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
+  { sport: "Boks", icon: "🥊", days: [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0] },
+  { sport: "Erkin kurash", icon: "🤼", days: [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
+  { sport: "Yunon-rum kurashi", icon: "🤼", days: [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0] },
+  { sport: "Taekwondo WFT", icon: "🥋", days: [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0] },
+  { sport: "Dzyudo", icon: "🥋", days: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0] },
+  { sport: "Yengil atletika", icon: "🏃", days: [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0] },
+  { sport: "FIBA 3X3 basketbol", icon: "🏀", days: [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] },
+  { sport: "Stol tennisi", icon: "🏓", days: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0] },
+  { sport: "Og'ir atletika", icon: "🏋️", days: [0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0] },
+  { sport: "Badiiy gimnastika", icon: "🤸", days: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
 ];
 
 const dateHeaders = [

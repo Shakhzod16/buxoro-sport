@@ -14,8 +14,10 @@ export function BrandBar() {
     if (saved) {
       try {
         const config = JSON.parse(saved) as { phone?: string; name?: string };
+        /* eslint-disable react-hooks/set-state-in-effect -- load saved branding once on mount */
         if (config.phone) setPhone(config.phone);
         if (config.name) setOrgName(config.name);
+        /* eslint-enable react-hooks/set-state-in-effect */
       } catch {
         /* ignore */
       }

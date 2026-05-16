@@ -14,9 +14,11 @@ export default function Footer() {
     if (saved) {
       try {
         const config = JSON.parse(saved) as { address?: string; phone?: string; email?: string }
+        /* eslint-disable react-hooks/set-state-in-effect -- load saved contact info once on mount */
         if (config.address) setAddress(config.address)
         if (config.phone) setPhone(config.phone)
         if (config.email) setEmail(config.email)
+        /* eslint-enable react-hooks/set-state-in-effect */
       } catch {
         /* ignore */
       }

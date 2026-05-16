@@ -9,6 +9,7 @@ export default function LoginPage() {
 
   const handleLogin = () => {
     if (form.username === 'admin' && form.password === 'admin123') {
+      document.cookie = 'bxs_admin_auth=authenticated; path=/; max-age=86400; SameSite=Lax'
       localStorage.setItem('bxs_admin_auth', 'true')
       router.push('/admin')
     } else {
