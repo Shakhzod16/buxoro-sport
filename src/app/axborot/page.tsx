@@ -21,7 +21,11 @@ export default function AxborotPage() {
   const [tab, setTab] = useState<Tab>("all");
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- defer list until client hydration */
+    setMounted(true);
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, []);
 
   const displayed = useMemo(() => {
     const filtered = news.filter(
@@ -77,7 +81,7 @@ export default function AxborotPage() {
             <p style={{ marginTop: "8px", fontSize: "0.875rem" }}>Tez orada yangiliklar qo&apos;shiladi</p>
           </div>
         ) : (
-          <div className="news-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
+          <div className="news-grid">
             {displayed.map((item) => (
               <a
                 key={item.id}

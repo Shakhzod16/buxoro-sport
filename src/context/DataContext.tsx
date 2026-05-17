@@ -142,7 +142,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- one-time hydrate from localStorage on mount */
     const savedNews = localStorage.getItem('bxs_news')
-    if (savedNews) { try { setNews(JSON.parse(savedNews)) } catch {} }
+    if (savedNews) {
+      try {
+        const parsed = JSON.parse(savedNews) as NewsItem[]
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setNews(parsed)
+        }
+      } catch { /* ignore */ }
+    }
 
     const savedComps = localStorage.getItem('bxs_competitions')
     if (savedComps) { try { setCompetitions(JSON.parse(savedComps)) } catch {} }
