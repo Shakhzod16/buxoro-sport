@@ -25,9 +25,27 @@ export const metadata: Metadata = {
   keywords: ["Buxoro", "sport", "boshqarma", "musobaqa", "sportchilar"],
   openGraph: {
     title: "Buxoro Viloyati Sport Boshqarmasi",
-    description: "Rasmiy sport portali",
+    description:
+      "Buxoro viloyatida sport sohasini rivojlantirish va davlat xizmatlarini ko'rsatishga qaratilgan rasmiy portal.",
+    url: "https://buxoro-sport.vercel.app",
+    siteName: "Buxoro Sport",
     locale: "uz_UZ",
     type: "website",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200&q=80",
+        width: 1200,
+        height: 630,
+        alt: "Buxoro Viloyati Sport Boshqarmasi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Buxoro Viloyati Sport Boshqarmasi",
+    description:
+      "Buxoro viloyatida sport sohasini rivojlantirish va davlat xizmatlarini ko'rsatishga qaratilgan rasmiy portal.",
+    images: ["https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200&q=80"],
   },
 };
 

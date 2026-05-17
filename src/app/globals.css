@@ -514,3 +514,194 @@
 @media (min-width: 769px) {
   .show-mobile-only { display: none !important; }
 }
+
+/* ── MOBILE CRITICAL FIXES ── */
+
+/* Prevent horizontal scroll on all pages */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Hero banner mobile */
+@media (max-width: 640px) {
+  .hero-banner {
+    min-height: 220px !important;
+    background-position: center center !important;
+  }
+  .hero-title {
+    font-size: 1.2rem !important;
+    line-height: 1.3 !important;
+  }
+  .hero-content {
+    padding: 0 0 20px 14px !important;
+  }
+}
+
+/* TopBar mobile — show only essential */
+@media (max-width: 640px) {
+  .topbar-inner {
+    min-height: 48px !important;
+    padding: 0 12px !important;
+  }
+  .topbar-logo-text {
+    display: none !important;
+  }
+  .topbar-logos {
+    gap: 8px !important;
+  }
+}
+
+/* BrandBar mobile */
+@media (max-width: 640px) {
+  .brandbar-inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 8px 12px !important;
+    gap: 4px !important;
+  }
+  .brandbar-org-name {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Navigation items mobile font */
+@media (max-width: 400px) {
+  .desktop-nav-inner {
+    gap: 0 !important;
+  }
+}
+
+/* Stats bar mobile */
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    padding: 0 12px !important;
+  }
+  .stats-number { font-size: 1.3rem !important; }
+  .stats-label  { font-size: 0.65rem !important; }
+  .stats-item   { border-right: none !important; padding: 10px 6px !important; }
+  .stats-bar    { padding: 16px 0 !important; }
+}
+
+/* Services mobile */
+@media (max-width: 480px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .service-card {
+    padding: 16px 8px !important;
+    font-size: 0.8rem !important;
+  }
+  .services-section { padding: 24px 0 !important; }
+  .services-inner   { padding: 0 12px !important; }
+}
+
+/* News grid mobile */
+@media (max-width: 480px) {
+  .news-grid { gap: 10px !important; }
+  .news-card-img { height: 140px !important; }
+}
+
+/* Section wrap mobile */
+@media (max-width: 480px) {
+  .section-wrap { padding: 24px 12px !important; }
+}
+
+/* Footer mobile */
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 0 12px !important;
+  }
+}
+
+/* Page hero mobile */
+@media (max-width: 480px) {
+  .page-hero { padding: 18px 0 16px !important; }
+  .page-hero-inner { padding: 0 12px !important; }
+  .page-hero-title { font-size: 1.1rem !important; }
+}
+
+/* Page layout mobile */
+@media (max-width: 480px) {
+  .page-layout-wrap {
+    padding: 14px 12px !important;
+    gap: 12px !important;
+  }
+}
+
+/* Regions map mobile */
+@media (max-width: 640px) {
+  .regions-grid { grid-template-columns: 1fr !important; }
+  .hududlar-grid { grid-template-columns: 1fr 1fr !important; }
+}
+
+/* Tables on mobile */
+@media (max-width: 640px) {
+  .table-scroll { border-radius: 0 !important; }
+}
+
+/* Admin stats mobile */
+@media (max-width: 480px) {
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+}
+
+/* Announcements mobile */
+@media (max-width: 640px) {
+  .announcements-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Athletes grid mobile */
+@media (max-width: 480px) {
+  .athletes-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+}
+
+/* Sport types mobile */
+@media (max-width: 480px) {
+  .sport-types-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+}
+
+/* Boglanish mobile */
+@media (max-width: 640px) {
+  .boglanish-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Search panel mobile */
+@media (max-width: 640px) {
+  .search-panel-inner { padding: 0 12px !important; }
+}
+
+/* Prevent text overflow everywhere */
+p, span, a, td, th, button, label {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Images never overflow */
+img {
+  max-width: 100% !important;
+  height: auto;
+}
+
+/* Buttons on small screens */
+@media (max-width: 480px) {
+  button, .btn {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+}

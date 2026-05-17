@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import PageHero from "@/components/sections/PageHero";
 import { useData } from "@/context/DataContext";
@@ -19,11 +19,16 @@ const TABS: { key: Tab; label: string }[] = [
 export default function AxborotPage() {
   const { news } = useData();
   const [tab, setTab] = useState<Tab>("all");
+  const [mounted, setMounted] = useState(false);
 
-  const list = useMemo(() => {
-    const active = news.filter((n) => n.status === "active");
-    if (tab === "all") return active;
-    return active.filter((n) => n.category === tab);
+  useEffect(() => setMounted(true), []);
+
+  const displayed = useMemo(() => {
+    const filtered = news.filter(
+      (n) => n.status === "active" || n.status === undefined || !n.status
+    );
+    if (tab === "all") return filtered;
+    return filtered.filter((n) => n.category === tab);
   }, [news, tab]);
 
   const fallbackImage = "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80";
@@ -32,10 +37,10 @@ export default function AxborotPage() {
     <>
       <PageHero
         title="Axborot xizmatlari"
-        subtitle="Yangiliklar, press-relizlar va rasmiy e’lonlar"
+        subtitle="Yangiliklar, press-relizlar va rasmiy e'lonlar"
         breadcrumb={[{ label: "Axborot", href: "/axborot" }]}
       />
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "32px 24px 48px" }}>
+      <div className="section-wrap" style={{ maxWidth: "1280px", margin: "0 auto", padding: "32px 24px 48px" }}>
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "24px" }}>
           {TABS.map((t) => {
             const active = tab === t.key;
@@ -61,13 +66,19 @@ export default function AxborotPage() {
           })}
         </div>
 
-        {list.length === 0 ? (
-          <p style={{ textAlign: "center", color: "#64748B", padding: "40px", background: "#fff", borderRadius: "12px" }}>
-            Yangiliklar topilmadi
-          </p>
+        {!mounted ? (
+          <div style={{ textAlign: "center", padding: "48px", color: "#718096" }}>
+            <p>Yuklanmoqda...</p>
+          </div>
+        ) : displayed.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "48px", color: "#718096" }}>
+            <div style={{ fontSize: "2.5rem", marginBottom: "12px" }}>📰</div>
+            <p style={{ fontWeight: 600, color: "#2D3748" }}>Yangiliklar topilmadi</p>
+            <p style={{ marginTop: "8px", fontSize: "0.875rem" }}>Tez orada yangiliklar qo&apos;shiladi</p>
+          </div>
         ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
-            {list.map((item) => (
+          <div className="news-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }}>
+            {displayed.map((item) => (
               <a
                 key={item.id}
                 href={`/axborot/${item.id}`}
@@ -82,7 +93,7 @@ export default function AxborotPage() {
                   display: "block",
                 }}
               >
-                <div style={{ position: "relative", width: "100%", height: "180px" }}>
+                <div className="news-card-img" style={{ position: "relative", width: "100%", height: "180px" }}>
                   <Image
                     src={item.image || fallbackImage}
                     alt=""

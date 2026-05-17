@@ -88,7 +88,7 @@ export function BrandBar() {
             </a>
 
             <a
-              href="#"
+              href="/boglanish#raqamlar"
               style={{
                 marginTop: "2px",
                 display: "block",

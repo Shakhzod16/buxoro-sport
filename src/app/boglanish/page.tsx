@@ -1,8 +1,15 @@
 "use client";
 
+import { Phone } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
 import PageHero from "@/components/sections/PageHero";
+
+const phones = [
+  { label: "Ishonch telefoni", number: "+998 55 520 90 07" },
+  { label: "Qabul xonasi", number: "+998 55 224 10 05" },
+  { label: "Faks", number: "+998 55 224 10 06" },
+];
 
 export default function BoglanishPage() {
   const [sent, setSent] = useState(false);
@@ -118,10 +125,40 @@ export default function BoglanishPage() {
               )}
             </form>
 
-            <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
+            <div id="raqamlar" style={{ marginTop: "20px", background: "#fff", borderRadius: "12px", border: "1px solid #E2E8F0", padding: "18px" }}>
+              <div style={{ fontWeight: 800, color: "#0F2447", marginBottom: "14px", fontSize: "0.95rem" }}>Aloqa raqamlari</div>
+              <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "12px" }}>
+                {phones.map((p) => (
+                  <li key={p.number}>
+                    <a
+                      href={`tel:${p.number.replace(/\s+/g, "")}`}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                        textDecoration: "none",
+                        color: "#334155",
+                        background: "#F8FAFC",
+                        padding: "12px 14px",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      <Phone size={18} color="#1A3C6B" style={{ flexShrink: 0 }} />
+                      <div>
+                        <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "#64748B", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                          {p.label}
+                        </div>
+                        <div style={{ fontSize: "1rem", fontWeight: 700, color: "#0B4A91", marginTop: "2px" }}>{p.number}</div>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "10px" }}>
               {[
                 "📍 Buxoro viloyati, Buxoro shahri",
-                "📞 +998 55 520 90 07",
                 "✉️ info@buxoro-sport.uz",
                 "🕐 Dushanba–Juma: 9:00–18:00",
               ].map((t) => (
