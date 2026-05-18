@@ -49,7 +49,7 @@ function normalizeMapSvg(svg: string) {
   return svg.replace(/\s*style="width:\s*519px;\s*height:\s*auto;"/i, ' style="width:100%;height:auto;display:block;"')
 }
 
-export default function RegionsMap() {
+export default function RegionsMap({ compact = false }: { compact?: boolean }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [hovered, setHovered] = useState<string | null>(null)
   const [svgHtml, setSvgHtml] = useState<string | null>(null)
@@ -213,7 +213,7 @@ export default function RegionsMap() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  padding: '10px 14px',
+                  padding: compact ? '8px 10px' : '10px 14px',
                   borderRadius: '8px',
                   border: isSelected
                     ? '1px solid #1A3C6B'
@@ -224,7 +224,7 @@ export default function RegionsMap() {
                   color: isSelected ? '#fff' : isHovered ? '#1A3C6B' : '#374151',
                   cursor: 'pointer',
                   fontWeight: isHovered ? 600 : 500,
-                  fontSize: '0.82rem',
+                  fontSize: compact ? '0.78rem' : '0.82rem',
                   textAlign: 'left',
                   transition: 'background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease',
                   boxShadow: isHovered ? '0 0 0 1px rgba(26, 60, 107, 0.12)' : 'none',

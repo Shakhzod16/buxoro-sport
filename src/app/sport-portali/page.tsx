@@ -140,6 +140,26 @@ export default function SportPortalPage() {
   const [expandedSportRow, setExpandedSportRow] = useState<string | null>(null);
   const [sportDateFrom, setSportDateFrom] = useState("");
   const [sportDateTo, setSportDateTo] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const medalRowCols = isMobile ? "30px 1fr 36px 36px 36px 50px 40px" : "70px 1fr 90px 90px 90px 100px 50px";
+  const medalHeadCols = isMobile ? "30px 1fr 36px 36px 36px 50px 40px" : "60px 1fr 80px 80px 80px 100px 50px";
+  const reytingCols = isMobile ? "30px 1fr 60px" : "60px 1fr 120px 100px";
+  const sectionPadTop = isMobile ? "24px 12px 0" : "48px 24px 0";
+  const sectionPad40 = isMobile ? "24px 12px 0" : "40px 24px 0";
+  const h2Section: CSSProperties = {
+    fontSize: isMobile ? "0.9rem" : "1rem",
+    fontWeight: 800,
+    color: "#1A3C6B",
+    letterSpacing: "0.05em",
+  };
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -281,14 +301,12 @@ export default function SportPortalPage() {
       </div>
 
       {/* ═══ 2. MEDAL JADVAL ═══ */}
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "48px 24px 0" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: sectionPadTop }}>
         <h2
           style={{
-            fontSize: "1.1rem",
-            fontWeight: 800,
-            color: "#1A3C6B",
+            ...h2Section,
+            fontSize: isMobile ? "0.9rem" : "1.1rem",
             marginBottom: "16px",
-            letterSpacing: "0.05em",
           }}
         >
           QILICHBOZLIK BO&apos;YICHA O&apos;ZBEKISTON CHEMPIONATI
@@ -340,11 +358,18 @@ export default function SportPortalPage() {
               border: "1px solid #E2E8F0",
             }}
           >
-            <div className="table-scroll">
+            <div
+              style={{
+                overflowX: "auto",
+                WebkitOverflowScrolling: "touch",
+                borderRadius: "0 8px 8px 8px",
+              }}
+            >
+            <div style={{ minWidth: isMobile ? 480 : undefined }}>
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "60px 1fr 80px 80px 80px 100px 50px",
+                gridTemplateColumns: medalHeadCols,
                 background: "#1A3C6B",
                 padding: "12px 16px",
                 gap: "8px",
@@ -371,7 +396,7 @@ export default function SportPortalPage() {
                     onClick={() => toggleRow(row.name)}
                     style={{
                       display: "grid",
-                      gridTemplateColumns: "70px 1fr 90px 90px 90px 100px 50px",
+                      gridTemplateColumns: medalRowCols,
                       padding: "13px 16px",
                       gap: "8px",
                       alignItems: "center",
@@ -387,15 +412,27 @@ export default function SportPortalPage() {
                         color: "#718096",
                         fontWeight: 600,
                         textAlign: "center",
+                        whiteSpace: "nowrap",
                       }}
                     >
                       {row.rank}
                     </span>
-                    <span style={{ fontSize: "0.875rem", color: "#1A3C6B", fontWeight: 600 }}>{row.name}</span>
-                    <span style={{ textAlign: "center", fontWeight: 700, color: "#1A3C6B" }}>{row.gold}</span>
-                    <span style={{ textAlign: "center", fontWeight: 700, color: "#718096" }}>{row.silver}</span>
-                    <span style={{ textAlign: "center", fontWeight: 700, color: "#CD7F32" }}>{row.bronze}</span>
-                    <span style={{ textAlign: "center", fontWeight: 800, color: "#1A3C6B", fontSize: "1rem" }}>{row.total}</span>
+                    <span
+                      style={{
+                        fontSize: isMobile ? "0.75rem" : "0.875rem",
+                        color: "#1A3C6B",
+                        fontWeight: 600,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {row.name}
+                    </span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#1A3C6B", whiteSpace: "nowrap" }}>{row.gold}</span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#718096", whiteSpace: "nowrap" }}>{row.silver}</span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#CD7F32", whiteSpace: "nowrap" }}>{row.bronze}</span>
+                    <span style={{ textAlign: "center", fontWeight: 800, color: "#1A3C6B", fontSize: "1rem", whiteSpace: "nowrap" }}>{row.total}</span>
                     <span
                       style={{
                         textAlign: "center",
@@ -720,7 +757,7 @@ export default function SportPortalPage() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "60px 1fr 80px 80px 80px 100px 50px",
+                gridTemplateColumns: medalHeadCols,
                 padding: "12px 16px",
                 gap: "8px",
                 background: "#1A3C6B",
@@ -734,6 +771,7 @@ export default function SportPortalPage() {
               <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>43</span>
               <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>87</span>
               <span />
+            </div>
             </div>
             </div>
           </div>
@@ -811,11 +849,18 @@ export default function SportPortalPage() {
               </label>
             </div>
 
-            <div className="table-scroll">
+            <div
+              style={{
+                overflowX: "auto",
+                WebkitOverflowScrolling: "touch",
+                borderRadius: "0 8px 8px 8px",
+              }}
+            >
+            <div style={{ minWidth: isMobile ? 480 : undefined }}>
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "60px 1fr 80px 80px 80px 100px 50px",
+                gridTemplateColumns: medalHeadCols,
                 background: "#1A3C6B",
                 padding: "12px 16px",
                 gap: "8px",
@@ -839,7 +884,7 @@ export default function SportPortalPage() {
                     onClick={() => toggleSportRow(row.name)}
                     style={{
                       display: "grid",
-                      gridTemplateColumns: "70px 1fr 90px 90px 90px 100px 50px",
+                      gridTemplateColumns: medalRowCols,
                       padding: "13px 16px",
                       gap: "8px",
                       alignItems: "center",
@@ -855,15 +900,27 @@ export default function SportPortalPage() {
                         color: "#718096",
                         fontWeight: 600,
                         textAlign: "center",
+                        whiteSpace: "nowrap",
                       }}
                     >
                       {row.rank}
                     </span>
-                    <span style={{ fontSize: "0.875rem", color: "#1A3C6B", fontWeight: 600 }}>{row.name}</span>
-                    <span style={{ textAlign: "center", fontWeight: 700, color: "#1A3C6B" }}>{row.gold}</span>
-                    <span style={{ textAlign: "center", fontWeight: 700, color: "#718096" }}>{row.silver}</span>
-                    <span style={{ textAlign: "center", fontWeight: 700, color: "#CD7F32" }}>{row.bronze}</span>
-                    <span style={{ textAlign: "center", fontWeight: 800, color: "#1A3C6B", fontSize: "1rem" }}>{row.total}</span>
+                    <span
+                      style={{
+                        fontSize: isMobile ? "0.75rem" : "0.875rem",
+                        color: "#1A3C6B",
+                        fontWeight: 600,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {row.name}
+                    </span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#1A3C6B", whiteSpace: "nowrap" }}>{row.gold}</span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#718096", whiteSpace: "nowrap" }}>{row.silver}</span>
+                    <span style={{ textAlign: "center", fontWeight: 700, color: "#CD7F32", whiteSpace: "nowrap" }}>{row.bronze}</span>
+                    <span style={{ textAlign: "center", fontWeight: 800, color: "#1A3C6B", fontSize: "1rem", whiteSpace: "nowrap" }}>{row.total}</span>
                     <span
                       style={{
                         textAlign: "center",
@@ -897,7 +954,7 @@ export default function SportPortalPage() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "60px 1fr 80px 80px 80px 100px 50px",
+                gridTemplateColumns: medalHeadCols,
                 padding: "12px 16px",
                 gap: "8px",
                 background: "#1A3C6B",
@@ -911,6 +968,7 @@ export default function SportPortalPage() {
               <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>{MEDAL_SPORT_FOOTER.bronze}</span>
               <span style={{ textAlign: "center", color: "#fff", fontWeight: 700 }}>{MEDAL_SPORT_FOOTER.total}</span>
               <span />
+            </div>
             </div>
             </div>
 
@@ -961,8 +1019,8 @@ export default function SportPortalPage() {
       </div>
 
       {/* ═══ 3. BOSHQARMALAR XARITA (bosh sahifa bilan bir xil RegionsMap) ═══ */}
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "48px 24px 0" }}>
-        <RegionsMap />
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: sectionPadTop }}>
+        <RegionsMap compact={isMobile} />
       </div>
 
       {/* ═══ 4. OLIMPIADA NATIJALARI ═══ */}
@@ -972,7 +1030,7 @@ export default function SportPortalPage() {
             maxWidth: "1280px",
             margin: "0 auto",
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
             minHeight: "280px",
           }}
         >
@@ -981,9 +1039,10 @@ export default function SportPortalPage() {
               backgroundImage: "url(https://images.unsplash.com/photo-1565992441121-4367fe2034cf?w=600&q=80)",
               backgroundSize: "cover",
               backgroundPosition: "center",
+              display: isMobile ? "none" : "block",
             }}
           />
-          <div style={{ padding: "48px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div style={{ padding: isMobile ? "32px 20px" : "48px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
               <span style={{ color: "#F4A419", fontSize: "1.2rem" }}>🏆</span>
               <span
@@ -997,7 +1056,7 @@ export default function SportPortalPage() {
                 OLIMPIADA NATIJALARI
               </span>
             </div>
-            <h3 style={{ color: "#fff", fontSize: "1.4rem", fontWeight: 700, marginBottom: "16px", lineHeight: 1.4 }}>
+            <h3 style={{ color: "#fff", fontSize: isMobile ? "1.1rem" : "1.4rem", fontWeight: 700, marginBottom: "16px", lineHeight: 1.4 }}>
               Prezident Olimpiadasi – sportchilarning katta imkoniyati
             </h3>
             <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.875rem", lineHeight: 1.7, marginBottom: "24px" }}>
@@ -1028,11 +1087,11 @@ export default function SportPortalPage() {
       </div>
 
       {/* ═══ 5. ENG KO'P KO'RILGANLAR ═══ */}
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "48px 24px 0" }}>
-        <h2 style={{ fontSize: "1rem", fontWeight: 800, color: "#1A3C6B", marginBottom: "20px", letterSpacing: "0.05em" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: sectionPadTop }}>
+        <h2 style={{ ...h2Section, marginBottom: "20px" }}>
           ENG KO&apos;P KO&apos;RILGANLAR
         </h2>
-        <div className="news-grid" style={{ display: "grid", gap: "16px" }}>
+        <div className="news-grid" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: isMobile ? "10px" : "16px" }}>
           {MOST_VIEWED.map((item, i) => (
             <Link
               key={`${item.title}-${i}`}
@@ -1078,11 +1137,11 @@ export default function SportPortalPage() {
       </div>
 
       {/* ═══ 6. INTERAKTIV XIZMATLAR ═══ */}
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px 0" }}>
-        <h2 style={{ fontSize: "1rem", fontWeight: 800, color: "#1A3C6B", marginBottom: "16px", letterSpacing: "0.05em" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: sectionPad40 }}>
+        <h2 style={{ ...h2Section, marginBottom: "16px" }}>
           INTERAKTIV XIZMATLAR
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "12px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: "12px" }}>
           {INTERACTIVE_SERVICES.map((text, i) => (
             <Link
               key={`${text}-${i}`}
@@ -1110,9 +1169,9 @@ export default function SportPortalPage() {
       </div>
 
       {/* ═══ 7. YANGILIKLAR ═══ */}
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px 0" }}>
-        <h2 style={{ fontSize: "1rem", fontWeight: 800, color: "#1A3C6B", marginBottom: "20px", letterSpacing: "0.05em" }}>YANGILIKLAR</h2>
-        <div className="news-grid" style={{ display: "grid", gap: "16px" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: sectionPad40 }}>
+        <h2 style={{ ...h2Section, marginBottom: "20px" }}>YANGILIKLAR</h2>
+        <div className="news-grid" style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: isMobile ? "10px" : "16px" }}>
           {news
             .filter((n) => n.status === "active")
             .slice(0, 6)
@@ -1165,8 +1224,8 @@ export default function SportPortalPage() {
       </div>
 
       {/* ═══ 8. REYTING TOP 10 ═══ */}
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px 0" }}>
-        <h2 style={{ fontSize: "1rem", fontWeight: 800, color: "#1A3C6B", marginBottom: "16px", letterSpacing: "0.05em" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: sectionPad40 }}>
+        <h2 style={{ ...h2Section, marginBottom: "16px" }}>
           REYTING - TOP 10
         </h2>
         <div style={{ background: "#fff", borderRadius: "10px", overflow: "hidden", border: "1px solid #E2E8F0" }}>
@@ -1174,6 +1233,8 @@ export default function SportPortalPage() {
           <div
             className="reyting-grid"
             style={{
+              display: "grid",
+              gridTemplateColumns: reytingCols,
               padding: "10px 16px",
               background: "#F7FAFC",
               gap: "8px",
@@ -1182,13 +1243,15 @@ export default function SportPortalPage() {
             <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#718096" }}>O&apos;RIN</span>
             <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#718096" }}>TASHKILOT</span>
             <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#718096" }}>YANGILIKLAR</span>
-            <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#718096" }}>KO&apos;RISHLAR</span>
+            <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#718096", display: isMobile ? "none" : "block" }}>KO&apos;RISHLAR</span>
           </div>
           {RATING_TOP_10.map((row, i) => (
             <div
               key={`${row.name}-${row.rank}`}
               className="reyting-grid"
               style={{
+                display: "grid",
+                gridTemplateColumns: reytingCols,
                 padding: "12px 16px",
                 gap: "8px",
                 alignItems: "center",
@@ -1196,10 +1259,10 @@ export default function SportPortalPage() {
                 background: i % 2 === 0 ? "#fff" : "#FAFBFC",
               }}
             >
-              <span style={{ fontSize: "1rem" }}>{row.medal ?? row.rank}</span>
-              <span style={{ fontSize: "0.875rem", color: "#2D3748", fontWeight: 500 }}>{row.name}</span>
-              <span style={{ fontSize: "0.875rem", color: "#1A3C6B", fontWeight: 600 }}>📰 {row.news}</span>
-              <span style={{ fontSize: "0.875rem", color: "#718096" }}>👁 {row.views}</span>
+              <span style={{ fontSize: "1rem", whiteSpace: "nowrap" }}>{row.medal ?? row.rank}</span>
+              <span style={{ fontSize: isMobile ? "0.75rem" : "0.875rem", color: "#2D3748", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{row.name}</span>
+              <span style={{ fontSize: "0.875rem", color: "#1A3C6B", fontWeight: 600, whiteSpace: "nowrap" }}>📰 {row.news}</span>
+              <span style={{ fontSize: "0.875rem", color: "#718096", display: isMobile ? "none" : "block", whiteSpace: "nowrap" }}>👁 {row.views}</span>
             </div>
           ))}
           </div>
@@ -1207,8 +1270,8 @@ export default function SportPortalPage() {
       </div>
 
       {/* PASSIV TASHKILOTLAR */}
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "40px 24px 0" }}>
-        <h2 style={{ fontSize: "1rem", fontWeight: 800, color: "#1A3C6B", marginBottom: "16px", letterSpacing: "0.05em" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: sectionPad40 }}>
+        <h2 style={{ ...h2Section, marginBottom: "16px" }}>
           PASSIV TASHKILOTLAR
         </h2>
         <div style={{ background: "#fff", borderRadius: "10px", overflow: "hidden", border: "1px solid #E2E8F0" }}>
@@ -1216,6 +1279,8 @@ export default function SportPortalPage() {
           <div
             className="reyting-grid"
             style={{
+              display: "grid",
+              gridTemplateColumns: reytingCols,
               padding: "10px 16px",
               background: "#F7FAFC",
               gap: "8px",
@@ -1225,7 +1290,7 @@ export default function SportPortalPage() {
             <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#718096" }}>O&apos;RIN</span>
             <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#718096" }}>TASHKILOT</span>
             <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#718096" }}>YANGILIKLAR</span>
-            <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#718096" }}>KO&apos;RISHLAR</span>
+            <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#718096", display: isMobile ? "none" : "block" }}>KO&apos;RISHLAR</span>
           </div>
           {[
             { rank: 1, name: "Ohangaron tumani sport maktabi" },
@@ -1243,6 +1308,8 @@ export default function SportPortalPage() {
               key={i}
               className="reyting-grid"
               style={{
+                display: "grid",
+                gridTemplateColumns: reytingCols,
                 padding: "12px 16px",
                 gap: "8px",
                 alignItems: "center",
@@ -1250,10 +1317,10 @@ export default function SportPortalPage() {
                 background: i % 2 === 0 ? "#fff" : "#FAFBFC",
               }}
             >
-              <span style={{ fontSize: "0.875rem", color: "#718096", fontWeight: 500 }}>{row.rank}</span>
-              <span style={{ fontSize: "0.875rem", color: "#2D3748" }}>{row.name}</span>
-              <span style={{ fontSize: "0.875rem", color: "#E63946" }}>📰 1</span>
-              <span style={{ fontSize: "0.875rem", color: "#718096" }}>👁 0</span>
+              <span style={{ fontSize: "0.875rem", color: "#718096", fontWeight: 500, whiteSpace: "nowrap" }}>{row.rank}</span>
+              <span style={{ fontSize: isMobile ? "0.75rem" : "0.875rem", color: "#2D3748", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{row.name}</span>
+              <span style={{ fontSize: "0.875rem", color: "#E63946", whiteSpace: "nowrap" }}>📰 1</span>
+              <span style={{ fontSize: "0.875rem", color: "#718096", display: isMobile ? "none" : "block", whiteSpace: "nowrap" }}>👁 0</span>
             </div>
           ))}
           </div>
@@ -1266,9 +1333,9 @@ export default function SportPortalPage() {
           style={{
             maxWidth: "1280px",
             margin: "0 auto",
-            padding: "0 24px",
+            padding: isMobile ? "0 12px" : "0 24px",
             display: "grid",
-            gridTemplateColumns: "200px 1fr 320px",
+            gridTemplateColumns: isMobile ? "1fr" : "200px 1fr 320px",
             gap: "24px",
             alignItems: "center",
           }}
@@ -1283,7 +1350,7 @@ export default function SportPortalPage() {
             <span style={{ fontSize: "1.4rem" }}>⛅</span>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ display: isMobile ? "none" : "flex", justifyContent: "center" }}>
             <div
               style={{
                 background: "#1A3C6B",
@@ -1342,8 +1409,8 @@ export default function SportPortalPage() {
                   style={{
                     color: "rgba(255,255,255,0.92)",
                     textDecoration: "none",
-                    fontSize: "0.78rem",
-                    padding: "0 14px",
+                    fontSize: isMobile ? "0.7rem" : "0.8rem",
+                    padding: isMobile ? "0 10px" : "0 20px",
                     fontWeight: 500,
                     letterSpacing: "0.04em",
                   }}
